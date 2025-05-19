@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
-interface Hero1Props {
+interface HeroProps {
   badge?: string;
   heading?: string;
   description?: string;
@@ -24,25 +24,25 @@ interface Hero1Props {
   };
 }
 
-const Hero1 = ({
+const Hero = ({
   badge = "✨ Your Website Builder",
   heading = "Blocks Built With Shadcn & Tailwind",
   description = "Finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.",
   buttons = {
     primary: {
-      text: "Discover all components",
-      url: "https://www.shadcnblocks.com",
+      text: "Lihat Layanan Kami",
+      url: "#",
     },
     secondary: {
-      text: "View on GitHub",
-      url: "https://www.shadcnblocks.com",
+      text: "Mulai Upload Gambar",
+      url: "#",
     },
   },
   image = {
     src: "https://www.shadcnblocks.com/images/block/placeholder-1.svg",
     alt: "Hero section demo image showing interface components",
   },
-}: Hero1Props) => {
+}: HeroProps) => {
   return (
     <section className="py-10">
       <div className="container">
@@ -72,11 +72,11 @@ const Hero1 = ({
               )}
             </div>
           </div>
-          <Image src={image.src} alt={image.alt} className="max-h-96 w-full rounded-md object-cover" width={92} height={92} />
+          <Image src={image.src} alt={image.alt} className="max-h-96 w-full rounded-md object-cover" width={72} height={72} />
         </div>
       </div>
     </section>
   );
 };
 
-export { Hero1 };
+export { Hero };

@@ -31,7 +31,7 @@ const sections = [
   },
 ];
 
-interface Footer7Props {
+interface FooterProps {
   logo?: {
     url: string;
     src: string;
@@ -39,14 +39,14 @@ interface Footer7Props {
     title: string;
   };
 }
-const Footer7 = ({
+const Footer = ({
   logo = {
     url: "https://www.shadcnblocks.com",
     src: "https://shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg",
     alt: "logo",
     title: "Shadcnblocks.com",
   },
-}: Footer7Props) => {
+}: FooterProps) => {
   return (
     <section className="py-10">
       <div className="container">
@@ -114,4 +114,4 @@ const Footer7 = ({
   );
 };
 
-export { Footer7 };
+export { Footer };
