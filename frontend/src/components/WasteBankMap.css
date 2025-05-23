@@ -1,0 +1,173 @@
+/* User Location Marker Styles */
+.user-location-marker {
+  position: relative;
+}
+
+.user-location-dot {
+  width: 12px;
+  height: 12px;
+  background: #3b82f6;
+  border: 2px solid white;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.user-location-pulse {
+  width: 20px;
+  height: 20px;
+  background: rgba(59, 130, 246, 0.3);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+/* Waste Bank Marker Styles */
+.waste-bank-marker {
+  position: relative;
+}
+
+.waste-bank-marker.active .waste-bank-icon {
+  background: #10b981;
+  color: white;
+}
+
+.waste-bank-marker.inactive .waste-bank-icon {
+  background: #ef4444;
+  color: white;
+}
+
+.waste-bank-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s;
+  font-size: 12px;
+}
+
+.waste-bank-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Override Leaflet default styles */
+.user-location-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.waste-bank-icon-wrapper {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Popup Customization */
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+}
+
+.leaflet-popup-tip {
+  background: white;
+}
+
+.custom-popup .leaflet-popup-content {
+  margin: 12px 16px;
+  line-height: 1.4;
+}
+
+/* Map Controls */
+.leaflet-control-zoom {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.leaflet-control-zoom a {
+  border-radius: 0;
+  color: #374151;
+  font-weight: bold;
+}
+
+.leaflet-control-zoom a:first-child {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.leaflet-control-zoom a:last-child {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.leaflet-control-zoom a:hover {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+/* Attribution */
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
+  border-radius: 4px;
+  font-size: 10px;
+}
+
+/* Map container responsiveness */
+.waste-bank-map-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+  .waste-bank-map-container {
+    min-height: 300px;
+  }
+  
+  .waste-bank-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+  
+  .user-location-dot {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .user-location-pulse {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* High DPI support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .waste-bank-icon,
+  .user-location-dot {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}

@@ -1,0 +1,192 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hai
+    - halo
+    - selamat pagi
+    - selamat siang
+    - selamat sore
+    - hi
+    - hello
+    - apa kabar
+    - halo bot
+    - hai ecobot
+    - mulai
+    - start
+
+- intent: goodbye
+  examples: |
+    - sampai jumpa
+    - bye
+    - selamat tinggal
+    - terima kasih
+    - thanks
+    - makasih
+    - sudah cukup
+    - selesai
+    - exit
+    - quit
+
+- intent: affirm
+  examples: |
+    - ya
+    - iya
+    - betul
+    - benar
+    - setuju
+    - ok
+    - oke
+    - baik
+    - yes
+
+- intent: deny
+  examples: |
+    - tidak
+    - bukan
+    - salah
+    - no
+    - enggak
+    - gak
+    - nggak
+
+- intent: ask_waste_sorting
+  examples: |
+    - bagaimana cara memilah sampah?
+    - cara pilah sampah
+    - gimana milah sampah
+    - jenis jenis sampah
+    - kategori sampah
+    - sampah organik dan anorganik
+    - cara memisahkan sampah
+    - pilah sampah yang benar
+    - memilah sampah di rumah
+    - sistem pemilahan sampah
+    - klasifikasi sampah rumah tangga
+
+- intent: ask_recycling
+  examples: |
+    - apa itu daur ulang?
+    - cara daur ulang
+    - bagaimana mendaur ulang sampah
+    - tips recycle
+    - proses daur ulang
+    - manfaat daur ulang
+    - daur ulang kertas
+    - recycle sampah
+    - pengolahan sampah daur ulang
+    - mendaur ulang sampah rumah tangga
+
+- intent: ask_composting
+  examples: |
+    - cara membuat kompos
+    - bagaimana bikin kompos
+    - kompos dari sampah organik
+    - pupuk kompos
+    - proses komposting
+    - membuat pupuk alami
+    - sampah organik jadi kompos
+    - cara kompos di rumah
+    - teknik pembuatan kompos
+    - kompos dari sisa makanan
+
+- intent: ask_plastic_recycling
+  examples: |
+    - daur ulang botol plastik
+    - jenis plastik yang bisa didaur ulang
+    - kode plastik
+    - cara recycle plastik
+    - plastik mana yang bisa didaur ulang
+    - nomor kode pada botol plastik
+    - pengolahan sampah plastik
+    - mendaur ulang botol plastik
+    - recycle plastik rumah tangga
+
+- intent: ask_waste_bank
+  examples: |
+    - apa itu bank sampah?
+    - bank sampah terdekat
+    - cara gabung bank sampah
+    - dimana bank sampah
+    - sistem bank sampah
+    - cara kerja bank sampah
+    - keuntungan bank sampah
+    - daftar bank sampah
+    - lokasi bank sampah
+    - bank sampah di sekitar sini
+
+- intent: ask_organic_waste
+  examples: |
+    - sampah organik
+    - pengolahan sampah organik
+    - jenis sampah organik
+    - cara mengolah sampah organik
+    - sisa makanan
+    - sampah dapur
+    - limbah organik
+    - sampah basah
+
+- intent: ask_inorganic_waste
+  examples: |
+    - sampah anorganik
+    - sampah kering
+    - jenis sampah anorganik
+    - pengolahan sampah anorganik
+    - sampah non organik
+    - limbah anorganik
+
+- intent: ask_reduce_waste
+  examples: |
+    - cara mengurangi sampah
+    - tips kurangi sampah
+    - reduce waste
+    - mengurangi limbah
+    - cara minimalisir sampah
+    - tips zero waste
+    - hidup minim sampah
+    - mengurangi sampah plastik
+    - tips ramah lingkungan
+
+- intent: ask_classification_help
+  examples: |
+    - cara pakai fitur klasifikasi
+    - bagaimana menggunakan kamera
+    - cara upload gambar
+    - fitur AI classification
+    - cara kerja aplikasi
+    - menggunakan ecosort
+    - klasifikasi otomatis
+    - deteksi jenis sampah
+
+- intent: ask_about_app
+  examples: |
+    - tentang ecosort
+    - apa itu ecosort
+    - fitur aplikasi
+    - kegunaan app ini
+    - fungsi ecosort
+    - aplikasi untuk apa
+    - about this app
+
+- intent: bot_challenge
+  examples: |
+    - apakah kamu bot?
+    - kamu robot?
+    - siapa kamu?
+    - apa kamu manusia?
+    - kamu chatbot?
+    - who are you?
+
+- intent: out_of_scope
+  examples: |
+    - cuaca hari ini
+    - resep masakan
+    - olahraga
+    - musik
+    - film bagus
+    - harga saham
+    - berita politik
+    - cara main game
+    - tutorial makeup
+    - tips diet
