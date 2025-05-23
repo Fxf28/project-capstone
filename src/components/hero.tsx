@@ -30,13 +30,9 @@ const Hero = ({
   description = "Finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.",
   buttons = {
     primary: {
-      text: "Lihat Layanan Kami",
+      text: "Mari Mulai",
       url: "#",
-    },
-    secondary: {
-      text: "Mulai Upload Gambar",
-      url: "#",
-    },
+    }
   },
   image = {
     src: "https://www.shadcnblocks.com/images/block/placeholder-1.svg",
@@ -59,13 +55,8 @@ const Hero = ({
             <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
               {buttons.primary && (
                 <Button asChild className="w-full sm:w-auto">
-                  <a href={buttons.primary.url}>{buttons.primary.text}</a>
-                </Button>
-              )}
-              {buttons.secondary && (
-                <Button asChild variant="outline" className="w-full sm:w-auto">
-                  <a href={buttons.secondary.url}>
-                    {buttons.secondary.text}
+                  <a href={buttons.primary.url}>
+                    {buttons.primary.text}
                     <ArrowRight className="size-4" />
                   </a>
                 </Button>
