@@ -1,0 +1,68 @@
+version: "3.1"
+
+stories:
+
+- story: greet and ask about waste sorting
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_waste_sorting
+  - action: utter_waste_sorting
+
+- story: ask about recycling and composting
+  steps:
+  - intent: ask_recycling
+  - action: utter_recycling_info
+  - intent: ask_composting
+  - action: utter_composting_guide
+
+- story: ask about plastic and waste bank
+  steps:
+  - intent: ask_plastic_recycling
+  - action: utter_plastic_recycling
+  - intent: ask_waste_bank
+  - action: utter_waste_bank_info
+
+- story: comprehensive waste management conversation
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_waste_sorting
+  - action: utter_waste_sorting
+  - intent: affirm
+  - intent: ask_organic_waste
+  - action: utter_organic_waste
+  - intent: ask_composting
+  - action: utter_composting_guide
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: app usage help
+  steps:
+  - intent: ask_classification_help
+  - action: utter_classification_help
+  - intent: ask_about_app
+  - action: utter_about_app
+
+- story: waste reduction conversation
+  steps:
+  - intent: ask_reduce_waste
+  - action: utter_reduce_waste
+  - intent: ask_inorganic_waste
+  - action: utter_inorganic_waste
+  - intent: ask_recycling
+  - action: utter_recycling_info
+
+- story: deny and ask different question
+  steps:
+  - intent: ask_waste_sorting
+  - action: utter_waste_sorting
+  - intent: deny
+  - intent: ask_composting
+  - action: utter_composting_guide
+
+- story: fallback to default
+  steps:
+  - action: utter_default
+  - intent: ask_waste_sorting
+  - action: utter_waste_sorting

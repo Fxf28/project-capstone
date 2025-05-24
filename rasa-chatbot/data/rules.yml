@@ -1,0 +1,78 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Handle out of scope
+  steps:
+  - intent: out_of_scope
+  - action: utter_out_of_scope
+
+- rule: Greet and provide waste sorting info
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Answer waste sorting questions
+  steps:
+  - intent: ask_waste_sorting
+  - action: utter_waste_sorting
+
+- rule: Answer recycling questions
+  steps:
+  - intent: ask_recycling
+  - action: utter_recycling_info
+
+- rule: Answer composting questions
+  steps:
+  - intent: ask_composting
+  - action: utter_composting_guide
+
+- rule: Answer plastic recycling questions
+  steps:
+  - intent: ask_plastic_recycling
+  - action: utter_plastic_recycling
+
+- rule: Answer waste bank questions
+  steps:
+  - intent: ask_waste_bank
+  - action: utter_waste_bank_info
+
+- rule: Answer organic waste questions
+  steps:
+  - intent: ask_organic_waste
+  - action: utter_organic_waste
+
+- rule: Answer inorganic waste questions
+  steps:
+  - intent: ask_inorganic_waste
+  - action: utter_inorganic_waste
+
+- rule: Answer waste reduction questions
+  steps:
+  - intent: ask_reduce_waste
+  - action: utter_reduce_waste
+
+- rule: Answer app classification help
+  steps:
+  - intent: ask_classification_help
+  - action: utter_classification_help
+
+- rule: Answer about app questions
+  steps:
+  - intent: ask_about_app
+  - action: utter_about_app
+
+- rule: Activate fallback
+  steps:
+  - intent: nlu_fallback
+  - action: utter_default

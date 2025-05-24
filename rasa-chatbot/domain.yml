@@ -1,0 +1,103 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - ask_waste_sorting
+  - ask_recycling
+  - ask_composting
+  - ask_plastic_recycling
+  - ask_waste_bank
+  - ask_organic_waste
+  - ask_inorganic_waste
+  - ask_reduce_waste
+  - ask_classification_help
+  - ask_about_app
+  - bot_challenge
+  - out_of_scope
+
+entities:
+  - waste_type
+  - location
+
+slots:
+  waste_type:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: waste_type
+  
+  location:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: location
+
+responses:
+  utter_greet:
+  - text: "Halo! Saya EcoBot, asisten AI untuk pengelolaan sampah. Saya siap membantu Anda dengan informasi tentang daur ulang, kompos, dan pengelolaan sampah yang ramah lingkungan. Ada yang bisa saya bantu? 🌱"
+
+  utter_goodbye:
+  - text: "Sampai jumpa! Terima kasih telah peduli lingkungan. Jangan lupa untuk selalu memilah sampah dan mendaur ulang! 🌍♻️"
+
+  utter_waste_sorting:
+  - text: "Cara memilah sampah yang baik:\n\n🗂️ **Sampah Organik**: Sisa makanan, kulit buah, daun\n📦 **Sampah Anorganik**: Plastik, kertas, logam, kaca\n☣️ **Sampah B3**: Baterai, lampu, obat-obatan\n\nPisahkan sampah di tempat yang berbeda dan pastikan dalam kondisi bersih sebelum dibuang!"
+
+  utter_recycling_info:
+  - text: "Tips daur ulang yang efektif:\n\n♻️ **Kertas**: Pisahkan dari plastik, hindari kertas yang berminyak\n🍶 **Kaca**: Bersihkan dari sisa makanan\n🥤 **Plastik**: Cek kode daur ulang (1-7), bersihkan sebelum didaur ulang\n🔩 **Logam**: Kaleng, aluminium bisa didaur ulang berulang kali\n\nIngat: Bersih, Kering, Pilah!"
+
+  utter_composting_guide:
+  - text: "Cara membuat kompos di rumah:\n\n🥬 **Bahan Hijau** (30%): Sisa sayuran, kulit buah\n🍂 **Bahan Coklat** (70%): Daun kering, kertas, sekam\n\n📋 **Langkah**:\n1. Campurkan bahan hijau dan coklat\n2. Siram sedikit air\n3. Aduk seminggu sekali\n4. Tunggu 2-3 bulan\n\nKompos siap jika berwarna coklat kehitaman dan berbau tanah!"
+
+  utter_plastic_recycling:
+  - text: "Panduan daur ulang plastik:\n\n🔢 **Kode Plastik yang mudah didaur ulang**:\n- Kode 1 (PET): Botol air, botol soda\n- Kode 2 (HDPE): Botol deterjen, susu\n- Kode 5 (PP): Wadah makanan\n\n⚠️ **Hindari**: Plastik berlapis, kemasan multilayer\n\n💡 **Tips**: Lepas label, tutup, bersihkan sebelum didaur ulang"
+
+  utter_waste_bank_info:
+  - text: "Bank Sampah - Sampah jadi Rupiah! 💰\n\n📍 **Cara bergabung**:\n1. Daftar di bank sampah terdekat\n2. Pilah sampah anorganik di rumah\n3. Bawa sampah bersih ke bank sampah\n4. Timbang dan catat di buku tabungan\n\n💵 **Sampah bernilai**: Kardus, kertas, plastik, logam, kaca\n\nGunakan fitur 'Bank Sampah' di EcoSort untuk menemukan lokasi terdekat!"
+
+  utter_organic_waste:
+  - text: "Pengelolaan sampah organik:\n\n🥬 **Jenis**: Sisa makanan, kulit buah/sayur, daun\n\n♻️ **Pengolahan**:\n- **Kompos**: Untuk pupuk tanaman\n- **Biogas**: Untuk energi alternatif\n- **Pakan ternak**: Sisa sayuran bersih\n\n⚡ **Manfaat**: Mengurangi sampah 40%, menghasilkan pupuk alami"
+
+  utter_inorganic_waste:
+  - text: "Sampah anorganik dan pengelolaannya:\n\n📦 **Jenis**: Plastik, kertas, logam, kaca, elektronik\n\n♻️ **Pengelolaan**:\n- **Daur ulang**: Jadi produk baru\n- **Bank sampah**: Nilai ekonomis\n- **Upcycling**: Kreasi DIY\n\n🌍 **Tips**: Kurangi, gunakan ulang, baru daur ulang (3R)"
+
+  utter_reduce_waste:
+  - text: "Cara mengurangi sampah di rumah:\n\n🛍️ **Belanja**:\n- Bawa tas belanja sendiri\n- Pilih produk dengan kemasan minimal\n- Beli sesuai kebutuhan\n\n🏠 **Di rumah**:\n- Gunakan ulang wadah/botol\n- Perbaiki barang rusak\n- Donasi barang yang tak terpakai\n\n💡 **Prinsip 5R**: Refuse, Reduce, Reuse, Recycle, Rot (kompos)"
+
+  utter_classification_help:
+  - text: "Fitur Klasifikasi EcoSort:\n\n📱 **Cara menggunakan**:\n1. Buka menu 'Klasifikasi'\n2. Upload foto atau gunakan kamera\n3. AI akan mengidentifikasi jenis sampah\n4. Dapatkan tips pengelolaan\n\n🎯 **9 Jenis yang dikenali**: Kardus, Organik, Kaca, Logam, Sampah Campur, Kertas, Plastik, Tekstil, Vegetasi\n\nAkurasi hingga 98%! 🤖"
+
+  utter_about_app:
+  - text: "Tentang EcoSort 🌱\n\n🤖 **AI-Powered**: Klasifikasi sampah dengan akurasi tinggi\n📚 **Edukasi**: Tips dan panduan lengkap\n🗺️ **Bank Sampah**: Lokasi terdekat\n💬 **EcoBot**: Asisten 24/7\n\n👥 **Tim**: 5 developer peduli lingkungan\n🎯 **Misi**: Lingkungan bersih dengan teknologi\n\nBersama kita wujudkan Indonesia bebas sampah! 🇮🇩"
+
+  utter_default:
+  - text: "Maaf, saya belum memahami pertanyaan Anda. Saya bisa membantu dengan:\n\n📋 Cara memilah sampah\n♻️ Tips daur ulang\n🥬 Membuat kompos\n🏦 Info bank sampah\n📱 Menggunakan fitur aplikasi\n\nSilakan tanya dengan kata-kata yang lebih spesifik ya!"
+
+  utter_iamabot:
+  - text: "Saya adalah EcoBot, chatbot AI yang membantu Anda dalam pengelolaan sampah dan daur ulang. Saya dibuat untuk mendukung lingkungan yang lebih bersih! 🤖🌱"
+
+  utter_out_of_scope:
+  - text: "Maaf, pertanyaan itu di luar keahlian saya. Saya fokus membantu masalah pengelolaan sampah, daur ulang, dan lingkungan. Ada hal lain tentang sampah yang ingin Anda tanyakan? 🌱"
+
+actions:
+  - utter_greet
+  - utter_goodbye
+  - utter_waste_sorting
+  - utter_recycling_info
+  - utter_composting_guide
+  - utter_plastic_recycling
+  - utter_waste_bank_info
+  - utter_organic_waste
+  - utter_inorganic_waste
+  - utter_reduce_waste
+  - utter_classification_help
+  - utter_about_app
+  - utter_default
+  - utter_iamabot
+  - utter_out_of_scope
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

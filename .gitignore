@@ -1,0 +1,96 @@
+# ---------------------
+# Global Logs
+# ---------------------
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ---------------------
+# Dependency directories
+# ---------------------
+node_modules/
+
+# ---------------------
+# Build outputs
+# ---------------------
+dist/
+build/
+.next/
+out/
+public/build/
+temp/
+tmp/
+.cache/
+.rpt2_cache/
+coverage/
+
+# ---------------------
+# Environment files
+# ---------------------
+.env
+.env.*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ---------------------
+# Editor folders
+# ---------------------
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ---------------------
+# Backend Specific
+# ---------------------
+backend/node_modules/
+backend/dist/
+backend/.env
+backend/.env.local
+backend/coverage/
+backend/logs/
+
+# ---------------------
+# Frontend Specific (Next.js + Tailwind + React)
+# ---------------------
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env
+frontend/.env.local
+frontend/public/build/
+frontend/coverage/
+
+# ---------------------
+# Rasa Chatbot Specific
+# ---------------------
+rasa-chatbot/.env
+rasa-chatbot/.env.local
+rasa-chatbot/.rasa-venv/
+rasa-chatbot/rasa-env/
+rasa-chatbot/.rasa/
+rasa-chatbot/__pycache__/
+rasa-chatbot/tests/__pycache__/
+rasa-chatbot/.coverage
+rasa-chatbot/.mypy_cache/
+rasa-chatbot/.pytest_cache/
+rasa-chatbot/coverage.xml
+rasa-chatbot/logs/
+rasa-chatbot/events.db
+rasa-chatbot/.db
+
+# Ignore Python Bytecode & compiled files in rasa-chatbot
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
