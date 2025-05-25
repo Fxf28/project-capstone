@@ -152,7 +152,7 @@ const WasteBankMap: React.FC<WasteBankMapProps> = ({
   return (
     <div className="waste-bank-map-container">
       {/* Map Container */}
-      <div ref={mapRef} className="w-full h-full rounded-lg" />
+      <div ref={mapRef} className="w-full h-full rounded-lg z-10" />
 
       {/* Map Legend */}
       <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg shadow-lg p-3 text-xs z-1000">
