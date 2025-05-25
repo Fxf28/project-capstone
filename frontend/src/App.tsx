@@ -22,6 +22,7 @@ import { Admin } from './pages/Admin';
 
 // Hooks
 import { useAuth } from './hooks/useAuth';
+import { Footer } from './components/footer';
 
 // Debug Component untuk melihat auth state
 const AuthDebug: React.FC = () => {
@@ -231,6 +232,7 @@ const App: React.FC = () => {
               },
             }}
           />
+          <Footer />
         </div>
       </Router>
     </TensorFlowErrorBoundary>
