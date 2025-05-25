@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
 import Webcam from 'react-webcam';
 import { Camera as CameraIcon, RotateCcw, Download } from 'lucide-react';
 import { useClassification } from '../hooks/useClassification';
@@ -42,6 +42,15 @@ export const Camera: React.FC = () => {
   const toggleCamera = () => {
     setFacingMode(prev => prev === 'user' ? 'environment' : 'user');
   };
+
+  // Cleanup effect to stop webcam stream on unmount
+  useEffect(() => {
+    return () => {
+      if (webcamRef.current && webcamRef.current.stream) {
+        webcamRef.current.stream.getTracks().forEach(track => track.stop());
+      }
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">

@@ -118,7 +118,10 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({
         <div className="flex items-center justify-between p-4 border-b">
           <h3 className="text-lg font-semibold">Ambil Foto</h3>
           <button
-            onClick={onClose}
+            onClick={() => {
+            stopCamera();
+            onClose();
+          }}
             className="p-2 hover:bg-gray-100 rounded-full transition-colors"
           >
             <X className="h-5 w-5" />
