@@ -22,7 +22,7 @@ import { Admin } from './pages/Admin';
 
 // Hooks
 import { useAuth } from './hooks/useAuth';
-import { Footer } from './components/footer';
+import { Footer } from './components/Footer';
 
 // Debug Component untuk melihat auth state
 const AuthDebug: React.FC = () => {
