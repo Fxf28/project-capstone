@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { connectToMongoose } from '../../../src/lib/mongodb';
-import User from '../../../src/models/User';
-import { handleCors } from '../../../src/utils/cors';
+import { NextApiRequest, NextApiResponse } from "next";
+import { connectToMongoose } from "@/lib/mongodb";
+import User from "@/models/User";
+import { handleCors } from "@/utils/cors";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Handle CORS first
@@ -11,12 +11,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   console.log(`📥 ${req.method} /api/debug/clean-users`);
 
-  if (req.method !== 'POST') {
-    return res.status(405).json({ success: false, error: 'Method not allowed' });
+  if (req.method !== "POST") {
+    return res.status(405).json({ success: false, error: "Method not allowed" });
   }
 
   try {
-    console.log('🧹 Cleaning duplicate users...');
+    console.log("🧹 Cleaning duplicate users...");
     await connectToMongoose();
 
     // Find all users
@@ -25,8 +25,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Group by email
     const emailGroups = new Map();
-    
-    allUsers.forEach(user => {
+
+    allUsers.forEach((user) => {
       if (!emailGroups.has(user.email)) {
         emailGroups.set(user.email, []);
       }
@@ -52,7 +52,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           cleanupResults.push({
             removed: userToRemove._id,
             email: userToRemove.email,
-            kept: keepUser._id
+            kept: keepUser._id,
           });
         }
       }
@@ -67,15 +67,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         finalCount,
         duplicateEmails,
         cleanupResults,
-        message: `Cleaned ${cleanupResults.length} duplicate users`
-      }
+        message: `Cleaned ${cleanupResults.length} duplicate users`,
+      },
     });
-
   } catch (error: any) {
-    console.error('❌ Error cleaning users:', error);
+    console.error("❌ Error cleaning users:", error);
     return res.status(500).json({
       success: false,
-      error: error.message
+      error: error.message,
     });
   }
 }

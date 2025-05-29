@@ -1,0 +1,40 @@
+### Python ###
+**/__pycache__
+*.py[cod]
+*.egg-info/
+*.env
+.venv/
+venv/
+env/
+rasa-env/
+
+### Rasa Specific ###
+data/.cache   # Cache data NLU
+logs/         # Logs lokal
+results/      # Hasil evaluasi/testing
+
+### Docker & Development ###
+.dockerignore
+docker-compose*.yml   # Kecuali docker-compose.yml utama (jika ada)
+Dockerfile-dev        # File Docker untuk development
+.env.local            # File environment lokal
+tmp/
+
+### IDE & Editor ###
+.idea/
+.vscode/
+*.swp
+*.swo
+
+### Sistem Operasi ###
+.DS_Store
+Thumbs.db
+
+### File Testing/Development ###
+tests/_output/
+examples/
+scripts/local/
+
+### File Sensitif ###
+credentials.yml   # Jika menggunakan env vars untuk production
+.env              # Gunakan env vars di platform deploy

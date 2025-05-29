@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { connectToMongoose } from '../../src/lib/mongodb';
-import Education from '../../src/models/Education';
-import { handleCors } from '../../src/utils/cors';
+import { NextApiRequest, NextApiResponse } from "next";
+import { connectToMongoose } from "@/lib/mongodb";
+import Education from "@/models/Education";
+import { handleCors } from "@/utils/cors";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Handle CORS first
@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Get education content count
     const count = await Education.countDocuments();
-    
+
     // Get sample education content
     const sample = await Education.find().limit(3).lean();
 
@@ -25,19 +25,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       data: {
         count,
         sample,
-        structure: sample.length > 0 ? Object.keys(sample[0]) : []
+        structure: sample.length > 0 ? Object.keys(sample[0]) : [],
       },
-      message: `Found ${count} education articles in database`
+      message: `Found ${count} education articles in database`,
     };
 
     return res.status(200).json(response);
-
   } catch (error: any) {
-    console.error('❌ Test education error:', error);
+    console.error("❌ Test education error:", error);
     return res.status(500).json({
       success: false,
       error: error.message,
-      details: 'Failed to test education endpoint'
+      details: "Failed to test education endpoint",
     });
   }
 }

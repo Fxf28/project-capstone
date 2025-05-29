@@ -6,11 +6,11 @@
 
 ## 📦 Fitur Utama
 
-* Memberikan informasi edukatif seputar pengelolaan sampah
-* Panduan daur ulang berdasarkan jenis sampah
-* Rekomendasi praktik ramah lingkungan
-* Interaksi berbasis intent dan entitas
-* Dukungan custom actions melalui Python
+- Memberikan informasi edukatif seputar pengelolaan sampah
+- Panduan daur ulang berdasarkan jenis sampah
+- Rekomendasi praktik ramah lingkungan
+- Interaksi berbasis intent dan entitas
+- Dukungan custom actions melalui Python
 
 ---
 
@@ -20,10 +20,10 @@
 
 Pastikan Anda memiliki:
 
-* **Python 3.8+**
-* **pip** (Package Installer for Python)
-* Aplikasi Terminal/Command Prompt
-* Disarankan: **Virtual Environment**
+- **Python 3.8+**
+- **pip** (Package Installer for Python)
+- Aplikasi Terminal/Command Prompt
+- Disarankan: **Virtual Environment**
 
 ---
 
@@ -126,7 +126,7 @@ rasa run actions
 
 EcoSort chatbot berkomunikasi dengan backend melalui **Rasa REST API**. Integrasi dapat ditemukan pada file:
 
-```
+```text
 lib/rasa.ts
 ```
 
@@ -154,9 +154,9 @@ curl -X POST http://localhost:5005/webhooks/rest/webhook \
 
 ## 📌 Catatan Tambahan
 
-* Gunakan virtual environment untuk menghindari konflik versi dependensi.
-* Pastikan koneksi API backend mengatur CORS dengan benar jika menggunakan frontend.
-* Jika ada perubahan pada `domain.yml` atau data pelatihan, lakukan retraining model.
+- Gunakan virtual environment untuk menghindari konflik versi dependensi.
+- Pastikan koneksi API backend mengatur CORS dengan benar jika menggunakan frontend.
+- Jika ada perubahan pada `domain.yml` atau data pelatihan, lakukan retraining model.
 
 ---
 

@@ -68,13 +68,13 @@ export const About: React.FC = () => {
             <h1 className="text-5xl font-bold">EcoSort</h1>
           </div>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Aplikasi klasifikasi sampah berbasis AI yang membantu masyarakat dalam pengelolaan sampah 
+            Aplikasi klasifikasi sampah berbasis AI yang membantu masyarakat dalam pengelolaan sampah
             yang tepat untuk mendukung program daur ulang dan kebersihan lingkungan.
           </p>
           <div className="bg-white bg-opacity-20 rounded-lg p-6 max-w-2xl mx-auto">
             <h2 className="text-2xl font-semibold mb-4">Misi Kami</h2>
             <p className="text-lg">
-              Memberikan solusi teknologi yang inovatif untuk meningkatkan kesadaran masyarakat 
+              Memberikan solusi teknologi yang inovatif untuk meningkatkan kesadaran masyarakat
               tentang pentingnya pengelolaan sampah yang benar demi masa depan yang lebih hijau.
             </p>
           </div>
@@ -206,22 +206,6 @@ export const About: React.FC = () => {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <div className="flex items-center justify-center mb-4">
-            <Leaf className="h-8 w-8 text-primary-400 mr-2" />
-            <span className="text-xl font-bold">EcoSort</span>
-          </div>
-          <p className="text-gray-400 mb-4">
-            Membangun masa depan yang lebih hijau dengan teknologi AI
-          </p>
-          <p className="text-sm text-gray-500">
-            © 2024 EcoSort. Semua hak cipta dilindungi.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 };
