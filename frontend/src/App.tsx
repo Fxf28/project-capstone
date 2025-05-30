@@ -7,6 +7,7 @@ import { tensorflowService } from './services/tensorflow';
 import { Navbar } from './components/Navbar';
 import { LoadingSpinner } from './components/LoadingSpinner';
 import { TensorFlowErrorBoundary } from './components/ErrorBoundary';
+import { Footer } from './components/Footer';
 
 // Pages
 import { Home } from './pages/Home';
@@ -22,7 +23,6 @@ import { Admin } from './pages/Admin';
 
 // Hooks
 import { useAuth } from './hooks/useAuth';
-import { Footer } from './components/Footer';
 
 // Debug Component untuk melihat auth state
 const AuthDebug: React.FC = () => {
