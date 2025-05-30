@@ -7,7 +7,7 @@ import { tensorflowService } from './services/tensorflow';
 import { Navbar } from './components/Navbar';
 import { LoadingSpinner } from './components/LoadingSpinner';
 import { TensorFlowErrorBoundary } from './components/ErrorBoundary';
-import { Footer } from './components/Footer';
+import Footer from './components/Footer';
 
 // Pages
 import { Home } from './pages/Home';
