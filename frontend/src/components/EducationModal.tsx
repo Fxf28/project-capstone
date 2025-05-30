@@ -8,10 +8,10 @@ interface EducationModalProps {
   onClose: () => void;
 }
 
-export const EducationModal: React.FC<EducationModalProps> = ({ 
-  article, 
-  isOpen, 
-  onClose 
+export const EducationModal: React.FC<EducationModalProps> = ({
+  article,
+  isOpen,
+  onClose
 }) => {
   if (!isOpen || !article) return null;
 
@@ -44,11 +44,11 @@ export const EducationModal: React.FC<EducationModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       {/* Backdrop */}
-      <div 
+      <div
         className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
         onClick={onClose}
       />
-      
+
       {/* Modal */}
       <div className="flex min-h-full items-center justify-center p-4">
         <div className="relative bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
@@ -63,6 +63,7 @@ export const EducationModal: React.FC<EducationModalProps> = ({
             <button
               onClick={onClose}
               className="text-gray-400 hover:text-gray-600 transition-colors"
+              title='Close Button'
             >
               <X className="h-6 w-6" />
             </button>
@@ -105,7 +106,7 @@ export const EducationModal: React.FC<EducationModalProps> = ({
                     </span>
                   </div>
                 )}
-                
+
                 {article.author && (
                   <div className="flex items-center space-x-1">
                     <User className="h-4 w-4" />
@@ -116,9 +117,8 @@ export const EducationModal: React.FC<EducationModalProps> = ({
 
               {/* Article Body */}
               <div className="prose prose-lg max-w-none">
-                <div 
-                  className="text-gray-700 leading-relaxed whitespace-pre-wrap"
-                  style={{ lineHeight: '1.8' }}
+                <div
+                  className="text-gray-700 whitespace-pre-wrap leading-loose"
                 >
                   {article.content}
                 </div>
