@@ -81,16 +81,6 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <a href="#" className="text-gray-300 hover:text-primary-400 transition-colors text-sm">
-                  Panduan Penggunaan
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-300 hover:text-primary-400 transition-colors text-sm">
-                  FAQ
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-300 hover:text-primary-400 transition-colors text-sm">
                   Dukungan
                 </a>
               </li>
