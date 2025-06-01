@@ -41,13 +41,13 @@ export const Education: React.FC = () => {
   // Safe filtering - ensure content is array
   const filteredContent = Array.isArray(content)
     ? content.filter((item) => {
-        const matchesSearch =
-          item.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          item.content?.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesCategory =
-          selectedCategory === "all" || item.category === selectedCategory;
-        return matchesSearch && matchesCategory;
-      })
+      const matchesSearch =
+        item.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.content?.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCategory =
+        selectedCategory === "all" || item.category === selectedCategory;
+      return matchesSearch && matchesCategory;
+    })
     : [];
 
   const openArticleDetail = (article: EducationContent) => {
@@ -96,13 +96,12 @@ export const Education: React.FC = () => {
       <div className="p-6">
         <div className="flex items-center justify-between mb-2">
           <span
-            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-              item.category === "recycling"
+            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${item.category === "recycling"
                 ? "bg-blue-100 text-blue-800"
                 : item.category === "composting"
-                ? "bg-green-100 text-green-800"
-                : "bg-orange-100 text-orange-800"
-            }`}
+                  ? "bg-green-100 text-green-800"
+                  : "bg-orange-100 text-orange-800"
+              }`}
           >
             {categories.find((cat) => cat.value === item.category)?.label ||
               item.category}
@@ -216,7 +215,14 @@ export const Education: React.FC = () => {
             {/* Category Filter */}
             <div className="flex items-center space-x-2">
               <Filter className="h-5 w-5 text-gray-400" />
+
+              {/* Label tersembunyi untuk aksesibilitas */}
+              <label htmlFor="category-select" className="sr-only">
+                Pilih Kategori
+              </label>
+
               <select
+                id="category-select"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
@@ -239,11 +245,10 @@ export const Education: React.FC = () => {
               <button
                 key={category.value}
                 onClick={() => setSelectedCategory(category.value)}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-colors ${
-                  selectedCategory === category.value
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-colors ${selectedCategory === category.value
                     ? "bg-primary-600 text-white"
                     : "bg-white text-gray-600 hover:bg-gray-50"
-                }`}
+                  }`}
               >
                 <Icon className="h-4 w-4" />
                 <span>{category.label}</span>
