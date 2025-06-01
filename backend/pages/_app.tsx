@@ -10,7 +10,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
                 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta charSet="UTF-8" />
-                <link rel="icon" href="/logo.ico" />
+                <link rel="icon" type="image/x-icon" href="/logo.ico" />
             </Head>
             <Component {...pageProps} />
         </>
