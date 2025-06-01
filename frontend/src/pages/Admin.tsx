@@ -243,11 +243,10 @@ export const Admin: React.FC = () => {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id as any)}
-                    className={`flex items-center space-x-2 px-6 py-4 font-medium text-sm transition-colors ${
-                      activeTab === tab.id
-                        ? "text-orange-600 border-b-2 border-orange-600 bg-orange-50"
-                        : "text-gray-500 hover:text-gray-700"
-                    }`}
+                    className={`flex items-center space-x-2 px-6 py-4 font-medium text-sm transition-colors ${activeTab === tab.id
+                      ? "text-orange-600 border-b-2 border-orange-600 bg-orange-50"
+                      : "text-gray-500 hover:text-gray-700"
+                      }`}
                   >
                     <Icon className="h-4 w-4" />
                     <span>{tab.label}</span>
@@ -470,11 +469,10 @@ export const Admin: React.FC = () => {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <span
-                                className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                                  userData.isAdmin
-                                    ? "bg-red-100 text-red-800"
-                                    : "bg-green-100 text-green-800"
-                                }`}
+                                className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${userData.isAdmin
+                                  ? "bg-red-100 text-red-800"
+                                  : "bg-green-100 text-green-800"
+                                  }`}
                               >
                                 {userData.isAdmin ? "Admin" : "User"}
                               </span>
@@ -482,8 +480,8 @@ export const Admin: React.FC = () => {
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                               {userData.createdAt
                                 ? new Date(
-                                    userData.createdAt
-                                  ).toLocaleDateString("id-ID")
+                                  userData.createdAt
+                                ).toLocaleDateString("id-ID")
                                 : "-"}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -564,13 +562,12 @@ export const Admin: React.FC = () => {
                         </p>
                         <div className="flex items-center justify-between">
                           <span
-                            className={`text-xs px-2 py-1 rounded-full ${
-                              item.category === "recycling"
-                                ? "bg-blue-100 text-blue-800"
-                                : item.category === "composting"
+                            className={`text-xs px-2 py-1 rounded-full ${item.category === "recycling"
+                              ? "bg-blue-100 text-blue-800"
+                              : item.category === "composting"
                                 ? "bg-green-100 text-green-800"
                                 : "bg-orange-100 text-orange-800"
-                            }`}
+                              }`}
                           >
                             {item.category}
                           </span>
@@ -703,11 +700,10 @@ export const Admin: React.FC = () => {
 
                         <div className="flex items-center justify-between">
                           <span
-                            className={`text-xs px-2 py-1 rounded-full ${
-                              bank.isActive
-                                ? "bg-green-100 text-green-800"
-                                : "bg-red-100 text-red-800"
-                            }`}
+                            className={`text-xs px-2 py-1 rounded-full ${bank.isActive
+                              ? "bg-green-100 text-green-800"
+                              : "bg-red-100 text-red-800"
+                              }`}
                           >
                             {bank.isActive ? "Aktif" : "Nonaktif"}
                           </span>
@@ -880,6 +876,8 @@ const EducationModal: React.FC<EducationModalProps> = ({
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-gray-600 transition-colors"
+            aria-label="button"
+            type="button"
           >
             <X className="h-6 w-6" />
           </button>
@@ -905,6 +903,7 @@ const EducationModal: React.FC<EducationModalProps> = ({
               Kategori *
             </label>
             <select
+              aria-label="Kategori"
               value={category}
               onChange={(e) => setCategory(e.target.value as any)}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
@@ -922,6 +921,7 @@ const EducationModal: React.FC<EducationModalProps> = ({
             <div className="space-y-3">
               <div className="flex items-center space-x-2">
                 <input
+                  aria-label="Input"
                   type="file"
                   accept="image/*"
                   onChange={(e) => setImageFile(e.target.files?.[0] || null)}
@@ -936,6 +936,8 @@ const EducationModal: React.FC<EducationModalProps> = ({
                     className="h-32 w-full object-cover rounded-lg border"
                   />
                   <button
+                    type="button"
+                    aria-label="Button"
                     onClick={() => {
                       setImageFile(null);
                       setImageUrl("");

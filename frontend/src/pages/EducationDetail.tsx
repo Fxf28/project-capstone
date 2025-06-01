@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 import type { EducationContent } from '../types';
+import { educationAPI } from '../services/api';
 
 export const EducationDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -34,20 +35,14 @@ export const EducationDetail: React.FC = () => {
     setError(null);
 
     try {
-      // For now, fetch from education list and find by ID
-      // In real app, you'd have a dedicated endpoint like /api/education/:id
-      const response = await fetch(`${process.env.VITE_API_BASE_URL}/api/education`);
-      const data = await response.json();
-
-      let articles: EducationContent[] = [];
-      if (data.success && data.data && data.data.content) {
-        articles = data.data.content;
-      }
+      // Pakai API service yang sudah ada
+      const articles = await educationAPI.getAll();
 
       const foundArticle = articles.find(item => item._id === articleId);
 
       if (!foundArticle) {
         setError('Artikel tidak ditemukan');
+        setArticle(null);
         return;
       }
 
@@ -61,6 +56,7 @@ export const EducationDetail: React.FC = () => {
 
     } catch (err: any) {
       setError(err.message || 'Gagal memuat artikel');
+      setArticle(null);
     } finally {
       setLoading(false);
     }
@@ -240,8 +236,7 @@ export const EducationDetail: React.FC = () => {
         <div className="bg-white rounded-lg shadow-sm p-6 md:p-8 mb-8">
           <div className="prose prose-lg max-w-none">
             <div
-              className="text-gray-700 leading-relaxed whitespace-pre-wrap"
-              style={{ lineHeight: '1.8', fontSize: '1.1rem' }}
+              className="text-gray-700 leading-relaxed whitespace-pre-wrap text-sm"
             >
               {article.content}
             </div>
