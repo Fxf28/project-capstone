@@ -1,20 +1,20 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from "next";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   // Handle CORS
-  const allowedOrigins = ["http://localhost:5173", "https://project-capstone-gamma.vercel.app/"];
+  const allowedOrigins = (process.env.CORS_ORIGIN || "http://localhost:5173").split(",").map((origin) => origin.trim());
   const origin = req.headers.origin;
-  
+
   if (origin && allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
   }
-  
+
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.setHeader("Access-Control-Allow-Credentials", "true");
 
   // Handle preflight request
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     res.status(200).end();
     return;
   }
@@ -22,20 +22,20 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   // Test response
   res.status(200).json({
     success: true,
-    message: 'Backend connection successful! 🎉',
+    message: "Backend connection successful! 🎉",
     timestamp: new Date().toISOString(),
     method: req.method,
     headers: {
-      origin: req.headers.origin || 'no-origin',
-      userAgent: req.headers['user-agent'] || 'unknown',
-      contentType: req.headers['content-type'] || 'none'
+      origin: req.headers.origin || "no-origin",
+      userAgent: req.headers["user-agent"] || "unknown",
+      contentType: req.headers["content-type"] || "none",
     },
     environment: {
-      nodeEnv: process.env.NODE_ENV || 'development',
-      port: process.env.PORT || '3001',
+      nodeEnv: process.env.NODE_ENV || "development",
+      port: process.env.PORT || "3001",
       hasMongoUri: !!process.env.MONGODB_URI,
       hasFirebaseConfig: !!process.env.FIREBASE_PROJECT_ID,
-      hasCloudinaryConfig: !!process.env.CLOUDINARY_CLOUD_NAME
-    }
+      hasCloudinaryConfig: !!process.env.CLOUDINARY_CLOUD_NAME,
+    },
   });
 }

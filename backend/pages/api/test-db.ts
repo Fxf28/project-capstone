@@ -6,7 +6,12 @@ import Education from "@/models/Education";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // CORS headers
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  const allowedOrigins = (process.env.CORS_ORIGIN || "http://localhost:5173").split(",").map((origin) => origin.trim());
+  const origin = req.headers.origin;
+
+  if (origin && allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
   res.setHeader("Access-Control-Allow-Methods", "GET");
 
   if (req.method !== "GET") {

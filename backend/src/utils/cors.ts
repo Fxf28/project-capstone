@@ -1,18 +1,27 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from "next";
 
-export function handleCors(req: NextApiRequest, res: NextApiResponse) {
-  // Set CORS headers
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins for development
-  res.setHeader('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization, x-requested-with');
-  res.setHeader('Access-Control-Max-Age', '86400');
+const allowedOrigins = (process.env.CORS_ORIGIN || "http://localhost:5173").split(",").map((origin) => origin.trim());
 
-  // Handle preflight request
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return true; // Indicates this was a preflight request
+export function setCorsHeaders(req: NextApiRequest, res: NextApiResponse) {
+  const origin = req.headers.origin || "";
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
   }
 
-  return false; // Continue with normal request
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version, x-requested-with");
+  res.setHeader("Access-Control-Max-Age", "86400");
+}
+
+export function handleCors(req: NextApiRequest, res: NextApiResponse): boolean {
+  setCorsHeaders(req, res);
+
+  if (req.method === "OPTIONS") {
+    res.status(200).end();
+    return true;
+  }
+
+  return false;
 }

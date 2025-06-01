@@ -7,13 +7,13 @@ import mongoose from "mongoose";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // CORS headers
-  const allowedOrigins = ["http://localhost:5173", "https://project-capstone-gamma.vercel.app/"];
+  const allowedOrigins = (process.env.CORS_ORIGIN || "http://localhost:5173").split(",").map((origin) => origin.trim());
   const origin = req.headers.origin;
-  
+
   if (origin && allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
   }
-  
+
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.setHeader("Access-Control-Allow-Credentials", "true");

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { 
-  ArrowLeft, 
-  Calendar, 
-  User, 
-  Tag, 
-  Share2, 
+import {
+  ArrowLeft,
+  Calendar,
+  User,
+  Tag,
+  Share2,
   BookOpen,
   Clock,
   Eye,
@@ -32,33 +32,33 @@ export const EducationDetail: React.FC = () => {
   const fetchArticle = async (articleId: string) => {
     setLoading(true);
     setError(null);
-    
+
     try {
       // For now, fetch from education list and find by ID
       // In real app, you'd have a dedicated endpoint like /api/education/:id
-      const response = await fetch(`http://localhost:3001/api/education`);
+      const response = await fetch(`${process.env.VITE_API_BASE_URL}/api/education`);
       const data = await response.json();
-      
+
       let articles: EducationContent[] = [];
       if (data.success && data.data && data.data.content) {
         articles = data.data.content;
       }
-      
+
       const foundArticle = articles.find(item => item._id === articleId);
-      
+
       if (!foundArticle) {
         setError('Artikel tidak ditemukan');
         return;
       }
-      
+
       setArticle(foundArticle);
-      
+
       // Get related articles (same category, exclude current)
       const related = articles
         .filter(item => item._id !== articleId && item.category === foundArticle.category)
         .slice(0, 3);
       setRelatedArticles(related);
-      
+
     } catch (err: any) {
       setError(err.message || 'Gagal memuat artikel');
     } finally {
@@ -165,7 +165,7 @@ export const EducationDetail: React.FC = () => {
               <ArrowLeft className="h-5 w-5" />
               <span>Kembali ke Edukasi</span>
             </button>
-            
+
             <button
               onClick={shareArticle}
               className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
@@ -187,7 +187,7 @@ export const EducationDetail: React.FC = () => {
               <Tag className="h-4 w-4 mr-1" />
               {getCategoryLabel(article.category)}
             </span>
-            
+
             <div className="flex items-center text-sm text-gray-600 space-x-4">
               {article.createdAt && (
                 <div className="flex items-center space-x-1">
@@ -201,12 +201,12 @@ export const EducationDetail: React.FC = () => {
                   </span>
                 </div>
               )}
-              
+
               <div className="flex items-center space-x-1">
                 <Clock className="h-4 w-4" />
                 <span>{estimateReadingTime(article.content)} menit baca</span>
               </div>
-              
+
               {article.author && (
                 <div className="flex items-center space-x-1">
                   <User className="h-4 w-4" />
@@ -239,7 +239,7 @@ export const EducationDetail: React.FC = () => {
         {/* Article Body */}
         <div className="bg-white rounded-lg shadow-sm p-6 md:p-8 mb-8">
           <div className="prose prose-lg max-w-none">
-            <div 
+            <div
               className="text-gray-700 leading-relaxed whitespace-pre-wrap"
               style={{ lineHeight: '1.8', fontSize: '1.1rem' }}
             >
@@ -361,7 +361,7 @@ export const EducationDetail: React.FC = () => {
               <Heart className="h-5 w-5" />
               <span>Suka</span>
             </button>
-            <button 
+            <button
               onClick={shareArticle}
               className="flex items-center space-x-2 px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
             >
