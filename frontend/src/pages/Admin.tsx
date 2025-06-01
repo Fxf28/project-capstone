@@ -1,42 +1,67 @@
-import React, { useState, useEffect } from 'react';
-import { Shield, Users, BookOpen, BarChart3, Plus, Edit, Trash2, MapPin, RefreshCw, AlertCircle, X } from 'lucide-react';
-import { useAuth } from '../hooks/useAuth';
-import { useEducation } from '../hooks/useEducation';
-import { useWasteBanks } from '../hooks/useWasteBanks';
-import { adminAPI, uploadToCloudinary } from '../services/api';
-import { LoadingSpinner } from '../components/LoadingSpinner';
-import WasteBankModal from '../components/WasteBankModal';
-import { toast } from 'react-hot-toast';
-import type { AdminStats, EducationContent, User, WasteBank } from '../types';
+import React, { useState, useEffect } from "react";
+import {
+  Shield,
+  Users,
+  BookOpen,
+  BarChart3,
+  Plus,
+  Edit,
+  Trash2,
+  MapPin,
+  RefreshCw,
+  AlertCircle,
+  X,
+} from "lucide-react";
+import { useAuth } from "../hooks/useAuth";
+import { useEducation } from "../hooks/useEducation";
+import { useWasteBanks } from "../hooks/useWasteBanks";
+import { adminAPI, uploadToCloudinary } from "../services/api";
+import { LoadingSpinner } from "../components/LoadingSpinner";
+import WasteBankModal from "../components/WasteBankModal";
+import { toast } from "react-hot-toast";
+import type { AdminStats, EducationContent, User, WasteBank } from "../types";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const Admin: React.FC = () => {
   const { user, loading: authLoading } = useAuth();
-  const { content, addContent, updateContent, deleteContent, fetchContent } = useEducation();
-  const { wasteBanks, addWasteBank, updateWasteBank, deleteWasteBank, fetchWasteBanks } = useWasteBanks();
-  
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'users' | 'education' | 'waste-banks'>('dashboard');
+  const { content, addContent, updateContent, deleteContent, fetchContent } =
+    useEducation();
+  const {
+    wasteBanks,
+    addWasteBank,
+    updateWasteBank,
+    deleteWasteBank,
+    fetchWasteBanks,
+  } = useWasteBanks();
+
+  const [activeTab, setActiveTab] = useState<
+    "dashboard" | "users" | "education" | "waste-banks"
+  >("dashboard");
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
-  
+
   // Education Modal States
   const [showEducationModal, setShowEducationModal] = useState(false);
-  const [editingEducation, setEditingEducation] = useState<EducationContent | null>(null);
-  
+  const [editingEducation, setEditingEducation] =
+    useState<EducationContent | null>(null);
+
   // Waste Bank Modal States
   const [showWasteBankModal, setShowWasteBankModal] = useState(false);
-  const [editingWasteBank, setEditingWasteBank] = useState<WasteBank | null>(null);
+  const [editingWasteBank, setEditingWasteBank] = useState<WasteBank | null>(
+    null
+  );
 
   // Check if user is admin
   const isAdmin = user?.isAdmin === true;
 
   // Debug user state
   useEffect(() => {
-    console.log('👑 Admin Page - User state:', {
+    console.log("👑 Admin Page - User state:", {
       user: user,
       isAdmin: user?.isAdmin,
       email: user?.email,
-      loading: authLoading
+      loading: authLoading,
     });
   }, [user, authLoading]);
 
@@ -44,7 +69,7 @@ export const Admin: React.FC = () => {
   useEffect(() => {
     if (isAdmin) {
       fetchStats();
-      if (activeTab === 'users') fetchUsers();
+      if (activeTab === "users") fetchUsers();
     }
   }, [isAdmin, activeTab]);
 
@@ -54,8 +79,8 @@ export const Admin: React.FC = () => {
       const data = await adminAPI.getStats();
       setStats(data);
     } catch (error: any) {
-      console.error('Error fetching stats:', error);
-      toast.error('Gagal memuat statistik admin');
+      console.error("Error fetching stats:", error);
+      toast.error("Gagal memuat statistik admin");
     } finally {
       setLoading(false);
     }
@@ -67,44 +92,44 @@ export const Admin: React.FC = () => {
       const data = await adminAPI.getUsers();
       setUsers(data);
     } catch (error: any) {
-      console.error('Error fetching users:', error);
-      toast.error('Gagal memuat data pengguna');
+      console.error("Error fetching users:", error);
+      toast.error("Gagal memuat data pengguna");
     } finally {
       setLoading(false);
     }
   };
 
   const handleDeleteUser = async (userId: string) => {
-    if (!confirm('Yakin ingin menghapus user ini?')) return;
-    
+    if (!confirm("Yakin ingin menghapus user ini?")) return;
+
     try {
       await adminAPI.deleteUser(userId);
-      setUsers(users.filter(u => u.uid !== userId));
-      toast.success('User berhasil dihapus');
+      setUsers(users.filter((u) => u.uid !== userId));
+      toast.success("User berhasil dihapus");
     } catch (error: any) {
-      toast.error('Gagal menghapus user');
+      toast.error("Gagal menghapus user");
     }
   };
 
   const handleDeleteEducation = async (id: string) => {
-    if (!confirm('Yakin ingin menghapus konten edukasi ini?')) return;
-    
+    if (!confirm("Yakin ingin menghapus konten edukasi ini?")) return;
+
     try {
       await deleteContent(id);
-      toast.success('Konten berhasil dihapus');
+      toast.success("Konten berhasil dihapus");
     } catch (error: any) {
-      toast.error('Gagal menghapus konten');
+      toast.error("Gagal menghapus konten");
     }
   };
 
   const handleDeleteWasteBank = async (id: string) => {
-    if (!confirm('Yakin ingin menghapus bank sampah ini?')) return;
-    
+    if (!confirm("Yakin ingin menghapus bank sampah ini?")) return;
+
     try {
       await deleteWasteBank(id);
-      toast.success('Bank sampah berhasil dihapus');
+      toast.success("Bank sampah berhasil dihapus");
     } catch (error: any) {
-      toast.error('Gagal menghapus bank sampah');
+      toast.error("Gagal menghapus bank sampah");
     }
   };
 
@@ -126,12 +151,14 @@ export const Admin: React.FC = () => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">
           <Shield className="h-16 w-16 text-red-500 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Login Diperlukan</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            Login Diperlukan
+          </h1>
           <p className="text-gray-600 mb-4">
             Silakan login terlebih dahulu untuk mengakses panel admin.
           </p>
           <button
-            onClick={() => window.location.href = '/'}
+            onClick={() => (window.location.href = "/")}
             className="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors"
           >
             Kembali ke Beranda
@@ -147,20 +174,24 @@ export const Admin: React.FC = () => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">
           <Shield className="h-16 w-16 text-red-500 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Akses Ditolak</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            Akses Ditolak
+          </h1>
           <p className="text-gray-600 mb-4">
             Anda tidak memiliki akses ke halaman admin.
           </p>
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
             <div className="text-sm text-yellow-800">
-              <p><strong>Debug Info:</strong></p>
+              <p>
+                <strong>Debug Info:</strong>
+              </p>
               <p>Email: {user.email}</p>
-              <p>Admin: {user.isAdmin ? 'Ya' : 'Tidak'}</p>
+              <p>Admin: {user.isAdmin ? "Ya" : "Tidak"}</p>
               <p>UID: {user.uid}</p>
             </div>
           </div>
           <button
-            onClick={() => window.location.href = '/'}
+            onClick={() => (window.location.href = "/")}
             className="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors"
           >
             Kembali ke Beranda
@@ -171,10 +202,10 @@ export const Admin: React.FC = () => {
   }
 
   const tabs = [
-    { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
-    { id: 'users', label: 'Pengguna', icon: Users },
-    { id: 'education', label: 'Edukasi', icon: BookOpen },
-    { id: 'waste-banks', label: 'Bank Sampah', icon: MapPin }
+    { id: "dashboard", label: "Dashboard", icon: BarChart3 },
+    { id: "users", label: "Pengguna", icon: Users },
+    { id: "education", label: "Edukasi", icon: BookOpen },
+    { id: "waste-banks", label: "Bank Sampah", icon: MapPin },
   ];
 
   return (
@@ -186,19 +217,27 @@ export const Admin: React.FC = () => {
             <Shield className="h-8 w-8 text-orange-600" />
             <div>
               <h1 className="text-3xl font-bold text-gray-900">Admin Panel</h1>
-              <p className="text-gray-600">Selamat datang, {user.displayName || user.email}</p>
+              <p className="text-gray-600">
+                Selamat datang, {user.displayName || user.email}
+              </p>
             </div>
           </div>
-          <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+          <motion.div
+            className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium"
+            whileHover={{
+              y: -5,
+              scale: 1.03,
+            }}
+          >
             Admin Access
-          </div>
+          </motion.div>
         </div>
 
         {/* Tabs */}
         <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8">
-          <div className="border-b border-gray-200">
-            <nav className="flex">
-              {tabs.map(tab => {
+          <div className="overflow-x-auto border-b border-gray-200">
+            <nav className="flex whitespace-nowarp">
+              {tabs.map((tab) => {
                 const Icon = tab.icon;
                 return (
                   <button
@@ -206,8 +245,8 @@ export const Admin: React.FC = () => {
                     onClick={() => setActiveTab(tab.id as any)}
                     className={`flex items-center space-x-2 px-6 py-4 font-medium text-sm transition-colors ${
                       activeTab === tab.id
-                        ? 'text-orange-600 border-b-2 border-orange-600 bg-orange-50'
-                        : 'text-gray-500 hover:text-gray-700'
+                        ? "text-orange-600 border-b-2 border-orange-600 bg-orange-50"
+                        : "text-gray-500 hover:text-gray-700"
                     }`}
                   >
                     <Icon className="h-4 w-4" />
@@ -220,7 +259,7 @@ export const Admin: React.FC = () => {
 
           <div className="p-6">
             {/* Dashboard Tab */}
-            {activeTab === 'dashboard' && (
+            {activeTab === "dashboard" && (
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-xl font-semibold">Statistik Aplikasi</h2>
@@ -241,70 +280,120 @@ export const Admin: React.FC = () => {
                   <div>
                     {/* Stats Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                      <div className="bg-blue-50 rounded-lg p-6">
+                      <motion.div
+                        className="bg-blue-50 rounded-lg p-6"
+                        whileHover={{
+                          y: -5,
+                          scale: 1.03,
+                        }}
+                      >
                         <div className="flex items-center">
                           <Users className="h-8 w-8 text-blue-600" />
                           <div className="ml-4">
-                            <p className="text-sm font-medium text-blue-600">Total Pengguna</p>
-                            <p className="text-2xl font-bold text-blue-900">{stats.totalUsers}</p>
+                            <p className="text-sm font-medium text-blue-600">
+                              Total Pengguna
+                            </p>
+                            <p className="text-2xl font-bold text-blue-900">
+                              {stats.totalUsers}
+                            </p>
                           </div>
                         </div>
-                      </div>
-                      
-                      <div className="bg-green-50 rounded-lg p-6">
+                      </motion.div>
+
+                      <motion.div
+                        className="bg-green-50 rounded-lg p-6"
+                        whileHover={{
+                          y: -5,
+                          scale: 1.03,
+                        }}
+                      >
                         <div className="flex items-center">
                           <BarChart3 className="h-8 w-8 text-green-600" />
                           <div className="ml-4">
-                            <p className="text-sm font-medium text-green-600">Total Klasifikasi</p>
-                            <p className="text-2xl font-bold text-green-900">{stats.totalClassifications}</p>
+                            <p className="text-sm font-medium text-green-600">
+                              Total Klasifikasi
+                            </p>
+                            <p className="text-2xl font-bold text-green-900">
+                              {stats.totalClassifications}
+                            </p>
                           </div>
                         </div>
-                      </div>
-                      
-                      <div className="bg-purple-50 rounded-lg p-6">
+                      </motion.div>
+
+                      <motion.div
+                        className="bg-purple-50 rounded-lg p-6"
+                        whileHover={{
+                          y: -5,
+                          scale: 1.03,
+                        }}
+                      >
                         <div className="flex items-center">
                           <BookOpen className="h-8 w-8 text-purple-600" />
                           <div className="ml-4">
-                            <p className="text-sm font-medium text-purple-600">Konten Edukasi</p>
-                            <p className="text-2xl font-bold text-purple-900">{stats.totalEducationContent}</p>
+                            <p className="text-sm font-medium text-purple-600">
+                              Konten Edukasi
+                            </p>
+                            <p className="text-2xl font-bold text-purple-900">
+                              {stats.totalEducationContent}
+                            </p>
                           </div>
                         </div>
-                      </div>
+                      </motion.div>
 
-                      <div className="bg-orange-50 rounded-lg p-6">
+                      <motion.div
+                        className="bg-orange-50 rounded-lg p-6"
+                        whileHover={{
+                          y: -5,
+                          scale: 1.03,
+                        }}
+                      >
                         <div className="flex items-center">
                           <MapPin className="h-8 w-8 text-orange-600" />
                           <div className="ml-4">
-                            <p className="text-sm font-medium text-orange-600">Bank Sampah</p>
-                            <p className="text-2xl font-bold text-orange-900">{wasteBanks.length}</p>
+                            <p className="text-sm font-medium text-orange-600">
+                              Bank Sampah
+                            </p>
+                            <p className="text-2xl font-bold text-orange-900">
+                              {wasteBanks.length}
+                            </p>
                           </div>
                         </div>
-                      </div>
+                      </motion.div>
                     </div>
 
                     {/* Recent Activity */}
-                    {stats.recentActivity && stats.recentActivity.length > 0 && (
-                      <div className="bg-white border rounded-lg p-6">
-                        <h3 className="text-lg font-semibold mb-4">Aktivitas Terbaru (30 Hari)</h3>
-                        <div className="space-y-2">
-                          {stats.recentActivity.slice(0, 7).map((activity, index) => (
-                            <div key={index} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0">
-                              <span className="text-sm text-gray-600">
-                                {new Date(activity.date).toLocaleDateString('id-ID')}
-                              </span>
-                              <div className="flex space-x-4 text-sm">
-                                <span className="text-green-600">
-                                  {activity.classifications} klasifikasi
-                                </span>
-                                <span className="text-blue-600">
-                                  {activity.newUsers} user baru
-                                </span>
-                              </div>
-                            </div>
-                          ))}
+                    {stats.recentActivity &&
+                      stats.recentActivity.length > 0 && (
+                        <div className="bg-white border rounded-lg p-6">
+                          <h3 className="text-lg font-semibold mb-4">
+                            Aktivitas Terbaru (30 Hari)
+                          </h3>
+                          <div className="space-y-2">
+                            {stats.recentActivity
+                              .slice(0, 7)
+                              .map((activity, index) => (
+                                <div
+                                  key={index}
+                                  className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0"
+                                >
+                                  <span className="text-sm text-gray-600">
+                                    {new Date(activity.date).toLocaleDateString(
+                                      "id-ID"
+                                    )}
+                                  </span>
+                                  <div className="flex space-x-4 text-sm">
+                                    <span className="text-green-600">
+                                      {activity.classifications} klasifikasi
+                                    </span>
+                                    <span className="text-blue-600">
+                                      {activity.newUsers} user baru
+                                    </span>
+                                  </div>
+                                </div>
+                              ))}
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
                   </div>
                 ) : (
                   <div className="text-center py-8">
@@ -316,7 +405,7 @@ export const Admin: React.FC = () => {
             )}
 
             {/* Users Tab */}
-            {activeTab === 'users' && (
+            {activeTab === "users" && (
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-xl font-semibold">Manajemen Pengguna</h2>
@@ -328,7 +417,7 @@ export const Admin: React.FC = () => {
                     <span>Refresh</span>
                   </button>
                 </div>
-                
+
                 {loading ? (
                   <div className="flex justify-center py-8">
                     <LoadingSpinner />
@@ -363,7 +452,7 @@ export const Admin: React.FC = () => {
                                 {userData.photoURL ? (
                                   <img
                                     src={userData.photoURL}
-                                    alt={userData.displayName || 'User'}
+                                    alt={userData.displayName || "User"}
                                     className="h-10 w-10 rounded-full mr-3"
                                   />
                                 ) : (
@@ -372,7 +461,7 @@ export const Admin: React.FC = () => {
                                   </div>
                                 )}
                                 <span className="font-medium text-gray-900">
-                                  {userData.displayName || 'No Name'}
+                                  {userData.displayName || "No Name"}
                                 </span>
                               </div>
                             </td>
@@ -380,27 +469,36 @@ export const Admin: React.FC = () => {
                               {userData.email}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                              <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                                userData.isAdmin 
-                                  ? 'bg-red-100 text-red-800' 
-                                  : 'bg-green-100 text-green-800'
-                              }`}>
-                                {userData.isAdmin ? 'Admin' : 'User'}
+                              <span
+                                className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                                  userData.isAdmin
+                                    ? "bg-red-100 text-red-800"
+                                    : "bg-green-100 text-green-800"
+                                }`}
+                              >
+                                {userData.isAdmin ? "Admin" : "User"}
                               </span>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                              {userData.createdAt ? new Date(userData.createdAt).toLocaleDateString('id-ID') : '-'}
+                              {userData.createdAt
+                                ? new Date(
+                                    userData.createdAt
+                                  ).toLocaleDateString("id-ID")
+                                : "-"}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                              {userData.uid !== user.uid && !userData.isAdmin && (
-                                <button
-                                  onClick={() => handleDeleteUser(userData.uid)}
-                                  className="text-red-600 hover:text-red-900 transition-colors"
-                                  title="Hapus User"
-                                >
-                                  <Trash2 className="h-4 w-4" />
-                                </button>
-                              )}
+                              {userData.uid !== user.uid &&
+                                !userData.isAdmin && (
+                                  <button
+                                    onClick={() =>
+                                      handleDeleteUser(userData.uid)
+                                    }
+                                    className="text-red-600 hover:text-red-900 transition-colors"
+                                    title="Hapus User"
+                                  >
+                                    <Trash2 className="h-4 w-4" />
+                                  </button>
+                                )}
                             </td>
                           </tr>
                         ))}
@@ -417,14 +515,16 @@ export const Admin: React.FC = () => {
             )}
 
             {/* Education Tab */}
-            {activeTab === 'education' && (
+            {activeTab === "education" && (
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-semibold">Manajemen Konten Edukasi</h2>
-                  <div className="flex space-x-2">
+                  <h2 className="text-xl font-semibold">
+                    Manajemen Konten Edukasi
+                  </h2>
+                  <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
                     <button
                       onClick={fetchContent}
-                      className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+                      className="flex items-center justify-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors border border-gray-300 rounded-lg w-full sm:w-auto"
                     >
                       <RefreshCw className="h-4 w-4" />
                       <span>Refresh</span>
@@ -434,7 +534,7 @@ export const Admin: React.FC = () => {
                         setEditingEducation(null);
                         setShowEducationModal(true);
                       }}
-                      className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors flex items-center space-x-2"
+                      className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center space-x-2 w-full sm:w-auto"
                     >
                       <Plus className="h-4 w-4" />
                       <span>Tambah Konten</span>
@@ -443,8 +543,11 @@ export const Admin: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {content.map(item => (
-                    <div key={item._id} className="bg-white border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+                  {content.map((item) => (
+                    <div
+                      key={item._id}
+                      className="bg-white border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
+                    >
                       {item.imageUrl && (
                         <img
                           src={item.imageUrl}
@@ -453,16 +556,22 @@ export const Admin: React.FC = () => {
                         />
                       )}
                       <div className="p-4">
-                        <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">{item.title}</h3>
+                        <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">
+                          {item.title}
+                        </h3>
                         <p className="text-sm text-gray-600 mb-3 line-clamp-3">
                           {item.content.substring(0, 100)}...
                         </p>
                         <div className="flex items-center justify-between">
-                          <span className={`text-xs px-2 py-1 rounded-full ${
-                            item.category === 'recycling' ? 'bg-blue-100 text-blue-800' :
-                            item.category === 'composting' ? 'bg-green-100 text-green-800' :
-                            'bg-orange-100 text-orange-800'
-                          }`}>
+                          <span
+                            className={`text-xs px-2 py-1 rounded-full ${
+                              item.category === "recycling"
+                                ? "bg-blue-100 text-blue-800"
+                                : item.category === "composting"
+                                ? "bg-green-100 text-green-800"
+                                : "bg-orange-100 text-orange-800"
+                            }`}
+                          >
                             {item.category}
                           </span>
                           <div className="flex space-x-2">
@@ -487,7 +596,9 @@ export const Admin: React.FC = () => {
                         </div>
                         {item.createdAt && (
                           <div className="text-xs text-gray-400 mt-2">
-                            {new Date(item.createdAt).toLocaleDateString('id-ID')}
+                            {new Date(item.createdAt).toLocaleDateString(
+                              "id-ID"
+                            )}
                           </div>
                         )}
                       </div>
@@ -505,14 +616,16 @@ export const Admin: React.FC = () => {
             )}
 
             {/* Waste Banks Tab */}
-            {activeTab === 'waste-banks' && (
+            {activeTab === "waste-banks" && (
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-semibold">Manajemen Bank Sampah</h2>
-                  <div className="flex space-x-2">
+                  <h2 className="text-xl font-semibold">
+                    Manajemen Bank Sampah
+                  </h2>
+                  <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
                     <button
                       onClick={() => fetchWasteBanks()}
-                      className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+                      className="flex items-center justify-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors border border-gray-300 rounded-lg w-full sm:w-auto"
                     >
                       <RefreshCw className="h-4 w-4" />
                       <span>Refresh</span>
@@ -522,7 +635,7 @@ export const Admin: React.FC = () => {
                         setEditingWasteBank(null);
                         setShowWasteBankModal(true);
                       }}
-                      className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors flex items-center space-x-2"
+                      className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center space-x-2 w-full sm:w-auto"
                     >
                       <Plus className="h-4 w-4" />
                       <span>Tambah Bank Sampah</span>
@@ -531,8 +644,11 @@ export const Admin: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {wasteBanks.map(bank => (
-                    <div key={bank._id} className="bg-white border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+                  {wasteBanks.map((bank) => (
+                    <div
+                      key={bank._id}
+                      className="bg-white border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
+                    >
                       {bank.imageUrl && (
                         <img
                           src={bank.imageUrl}
@@ -541,7 +657,9 @@ export const Admin: React.FC = () => {
                         />
                       )}
                       <div className="p-4">
-                        <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">{bank.name}</h3>
+                        <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">
+                          {bank.name}
+                        </h3>
                         <p className="text-sm text-gray-600 mb-2 line-clamp-2">
                           📍 {bank.address}
                         </p>
@@ -555,23 +673,26 @@ export const Admin: React.FC = () => {
                             🕒 {bank.operatingHours}
                           </p>
                         )}
-                        
+
                         {/* Coordinates */}
                         <p className="text-xs text-gray-500 mb-2">
-                          📊 {bank.latitude.toFixed(4)}, {bank.longitude.toFixed(4)}
+                          📊 {bank.latitude.toFixed(4)},{" "}
+                          {bank.longitude.toFixed(4)}
                         </p>
-                        
+
                         {/* Accepted Wastes */}
                         <div className="mb-3">
                           <div className="flex flex-wrap gap-1">
-                            {bank.acceptedWastes.slice(0, 3).map((waste, index) => (
-                              <span
-                                key={index}
-                                className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800"
-                              >
-                                {waste}
-                              </span>
-                            ))}
+                            {bank.acceptedWastes
+                              .slice(0, 3)
+                              .map((waste, index) => (
+                                <span
+                                  key={index}
+                                  className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800"
+                                >
+                                  {waste}
+                                </span>
+                              ))}
                             {bank.acceptedWastes.length > 3 && (
                               <span className="text-xs text-gray-500">
                                 +{bank.acceptedWastes.length - 3} lainnya
@@ -581,12 +702,14 @@ export const Admin: React.FC = () => {
                         </div>
 
                         <div className="flex items-center justify-between">
-                          <span className={`text-xs px-2 py-1 rounded-full ${
-                            bank.isActive 
-                              ? 'bg-green-100 text-green-800' 
-                              : 'bg-red-100 text-red-800'
-                          }`}>
-                            {bank.isActive ? 'Aktif' : 'Nonaktif'}
+                          <span
+                            className={`text-xs px-2 py-1 rounded-full ${
+                              bank.isActive
+                                ? "bg-green-100 text-green-800"
+                                : "bg-red-100 text-red-800"
+                            }`}
+                          >
+                            {bank.isActive ? "Aktif" : "Nonaktif"}
                           </span>
                           <div className="flex space-x-2">
                             <button
@@ -608,16 +731,18 @@ export const Admin: React.FC = () => {
                             </button>
                           </div>
                         </div>
-                        
+
                         {bank.distance && (
                           <div className="text-xs text-gray-500 mt-2">
                             📏 {bank.distance.toFixed(1)} km dari lokasi Anda
                           </div>
                         )}
-                        
+
                         {bank.createdAt && (
                           <div className="text-xs text-gray-400 mt-2">
-                            {new Date(bank.createdAt).toLocaleDateString('id-ID')}
+                            {new Date(bank.createdAt).toLocaleDateString(
+                              "id-ID"
+                            )}
                           </div>
                         )}
                       </div>
@@ -628,7 +753,9 @@ export const Admin: React.FC = () => {
                 {wasteBanks.length === 0 && (
                   <div className="text-center py-8">
                     <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600">Belum ada bank sampah terdaftar</p>
+                    <p className="text-gray-600">
+                      Belum ada bank sampah terdaftar
+                    </p>
                   </div>
                 )}
               </div>
@@ -648,15 +775,15 @@ export const Admin: React.FC = () => {
               try {
                 if (editingEducation) {
                   await updateContent(editingEducation._id!, data);
-                  toast.success('Konten berhasil diperbarui');
+                  toast.success("Konten berhasil diperbarui");
                 } else {
                   await addContent(data);
-                  toast.success('Konten berhasil ditambahkan');
+                  toast.success("Konten berhasil ditambahkan");
                 }
                 setShowEducationModal(false);
                 setEditingEducation(null);
               } catch (error: any) {
-                toast.error('Gagal menyimpan konten');
+                toast.error("Gagal menyimpan konten");
               }
             }}
           />
@@ -674,15 +801,15 @@ export const Admin: React.FC = () => {
               try {
                 if (editingWasteBank) {
                   await updateWasteBank(editingWasteBank._id!, data);
-                  toast.success('Bank sampah berhasil diperbarui');
+                  toast.success("Bank sampah berhasil diperbarui");
                 } else {
                   await addWasteBank(data);
-                  toast.success('Bank sampah berhasil ditambahkan');
+                  toast.success("Bank sampah berhasil ditambahkan");
                 }
                 setShowWasteBankModal(false);
                 setEditingWasteBank(null);
               } catch (error: any) {
-                toast.error('Gagal menyimpan bank sampah');
+                toast.error("Gagal menyimpan bank sampah");
               }
             }}
           />
@@ -696,22 +823,28 @@ export const Admin: React.FC = () => {
 interface EducationModalProps {
   education: EducationContent | null;
   onClose: () => void;
-  onSave: (data: Omit<EducationContent, '_id' | 'createdAt' | 'updatedAt'>) => Promise<void>;
+  onSave: (
+    data: Omit<EducationContent, "_id" | "createdAt" | "updatedAt">
+  ) => Promise<void>;
 }
 
-const EducationModal: React.FC<EducationModalProps> = ({ education, onClose, onSave }) => {
-  const [title, setTitle] = useState(education?.title || '');
-  const [content, setContent] = useState(education?.content || '');
-  const [category, setCategory] = useState<'recycling' | 'composting' | 'reduction'>(
-    education?.category || 'recycling'
-  );
+const EducationModal: React.FC<EducationModalProps> = ({
+  education,
+  onClose,
+  onSave,
+}) => {
+  const [title, setTitle] = useState(education?.title || "");
+  const [content, setContent] = useState(education?.content || "");
+  const [category, setCategory] = useState<
+    "recycling" | "composting" | "reduction"
+  >(education?.category || "recycling");
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState(education?.imageUrl || '');
+  const [imageUrl, setImageUrl] = useState(education?.imageUrl || "");
   const [loading, setLoading] = useState(false);
 
   const handleSave = async () => {
     if (!title.trim() || !content.trim()) {
-      toast.error('Judul dan konten harus diisi');
+      toast.error("Judul dan konten harus diisi");
       return;
     }
 
@@ -728,10 +861,10 @@ const EducationModal: React.FC<EducationModalProps> = ({ education, onClose, onS
         title: title.trim(),
         content: content.trim(),
         category,
-        imageUrl: finalImageUrl
+        imageUrl: finalImageUrl,
       });
     } catch (error) {
-      toast.error('Gagal menyimpan konten');
+      toast.error("Gagal menyimpan konten");
     } finally {
       setLoading(false);
     }
@@ -742,7 +875,7 @@ const EducationModal: React.FC<EducationModalProps> = ({ education, onClose, onS
       <div className="bg-white rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between p-6 border-b">
           <h2 className="text-xl font-semibold">
-            {education ? 'Edit Konten Edukasi' : 'Tambah Konten Edukasi'}
+            {education ? "Edit Konten Edukasi" : "Tambah Konten Edukasi"}
           </h2>
           <button
             onClick={onClose}
@@ -805,7 +938,7 @@ const EducationModal: React.FC<EducationModalProps> = ({ education, onClose, onS
                   <button
                     onClick={() => {
                       setImageFile(null);
-                      setImageUrl('');
+                      setImageUrl("");
                     }}
                     className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
                   >

@@ -114,13 +114,13 @@ export const Navbar: React.FC = () => {
                     <span>Admin</span>
                   </Link>
                 )}
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 relative group">
                   {user.photoURL ? (
-                    <img src={user.photoURL} alt={user.displayName || 'User'} className="h-8 w-8 rounded-full" />
+                    <img src={user.photoURL} alt={user.displayName || 'User'} className="h-8 w-8 rounded-full cursor-pointer" />
                   ) : (
                     <User className="h-8 w-8 text-gray-400" />
                   )}
-                  <span className="text-sm text-gray-700">{user.displayName || user.email}</span>
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1 text-xs text-white bg-gray-800 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10">{user.displayName || user.email}</div>
                 </div>
                 <button
                   onClick={handleLogout}
@@ -167,7 +167,7 @@ export const Navbar: React.FC = () => {
                   ) : (
                     <User className="h-8 w-8 text-gray-400" />
                   )}
-                  <span className="text-sm text-gray-700">{user.displayName || user.email}</span>
+                  
                 </div>
                 <button
                   onClick={() => {

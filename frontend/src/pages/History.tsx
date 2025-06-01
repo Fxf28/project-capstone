@@ -1,15 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { Clock, Camera, Upload, Filter, Download, Trash2, Eye, BarChart3, AlertCircle, X } from 'lucide-react';
-import { classificationAPI } from '../services/api';
-import { useAuth } from '../hooks/useAuth';
-import { ClassificationCard } from '../components/ClassificationCard';
-import { LoadingSpinner } from '../components/LoadingSpinner';
-import type { ClassificationResult } from '../types';
-import { toast } from 'react-hot-toast';
+import React, { useState, useEffect } from "react";
+import {
+  Clock,
+  Camera,
+  Upload,
+  Filter,
+  Download,
+  Trash2,
+  Eye,
+  BarChart3,
+  AlertCircle,
+  X,
+} from "lucide-react";
+import { classificationAPI } from "../services/api";
+import { useAuth } from "../hooks/useAuth";
+import { ClassificationCard } from "../components/ClassificationCard";
+import { LoadingSpinner } from "../components/LoadingSpinner";
+import type { ClassificationResult } from "../types";
+import { toast } from "react-hot-toast";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Fix: Define proper filter interface
 interface FilterState {
-  method: 'all' | 'upload' | 'camera';
+  method: "all" | "upload" | "camera";
   result: string;
   page: number;
 }
@@ -22,28 +34,40 @@ interface PaginationState {
 
 export const History: React.FC = () => {
   const { user } = useAuth();
-  const [classifications, setClassifications] = useState<ClassificationResult[]>([]);
+  const [classifications, setClassifications] = useState<
+    ClassificationResult[]
+  >([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [deleteLoading, setDeleteLoading] = useState<string | null>(null);
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null);
-  
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(
+    null
+  );
+
   // Fix: Proper state typing
   const [filter, setFilter] = useState<FilterState>({
-    method: 'all',
-    result: 'all',
-    page: 1
+    method: "all",
+    result: "all",
+    page: 1,
   });
-  
+
   const [pagination, setPagination] = useState<PaginationState>({
     total: 0,
     pages: 0,
-    currentPage: 1
+    currentPage: 1,
   });
 
   const wasteTypes = [
-    'all', 'Cardboard', 'Food Organics', 'Glass', 'Metal',
-    'Miscellaneous Trash', 'Paper', 'Plastic', 'Textile Trash', 'Vegetation'
+    "all",
+    "Cardboard",
+    "Food Organics",
+    "Glass",
+    "Metal",
+    "Miscellaneous Trash",
+    "Paper",
+    "Plastic",
+    "Textile Trash",
+    "Vegetation",
   ];
 
   useEffect(() => {
@@ -58,31 +82,31 @@ export const History: React.FC = () => {
     try {
       const params = new URLSearchParams({
         page: filter.page.toString(),
-        limit: '12'
+        limit: "12",
       });
 
-      if (filter.method !== 'all') {
-        params.append('method', filter.method);
+      if (filter.method !== "all") {
+        params.append("method", filter.method);
       }
-      if (filter.result !== 'all') {
-        params.append('result', filter.result);
+      if (filter.result !== "all") {
+        params.append("result", filter.result);
       }
 
       const response = await classificationAPI.getHistory(params.toString());
-      
+
       if (response.success && response.data) {
         setClassifications(response.data.classifications || []);
         setPagination({
           total: response.data.pagination?.total || 0,
           pages: response.data.pagination?.pages || 0,
-          currentPage: response.data.pagination?.page || 1
+          currentPage: response.data.pagination?.page || 1,
         });
       } else {
         setClassifications([]);
       }
     } catch (error: any) {
-      console.error('Error fetching history:', error);
-      setError('Gagal memuat riwayat klasifikasi');
+      console.error("Error fetching history:", error);
+      setError("Gagal memuat riwayat klasifikasi");
       setClassifications([]);
     } finally {
       setLoading(false);
@@ -95,21 +119,21 @@ export const History: React.FC = () => {
     try {
       // Call delete API (you need to implement this in your API service)
       await classificationAPI.delete(id);
-      
+
       // Remove from local state
-      setClassifications(prev => prev.filter(item => item._id !== id));
-      
+      setClassifications((prev) => prev.filter((item) => item._id !== id));
+
       // Update pagination
-      setPagination(prev => ({
+      setPagination((prev) => ({
         ...prev,
-        total: prev.total - 1
+        total: prev.total - 1,
       }));
-      
-      toast.success('Klasifikasi berhasil dihapus');
+
+      toast.success("Klasifikasi berhasil dihapus");
       setShowDeleteConfirm(null);
     } catch (error: any) {
-      console.error('Error deleting classification:', error);
-      toast.error('Gagal menghapus klasifikasi');
+      console.error("Error deleting classification:", error);
+      toast.error("Gagal menghapus klasifikasi");
     } finally {
       setDeleteLoading(null);
     }
@@ -120,7 +144,7 @@ export const History: React.FC = () => {
   const [bulkDeleteLoading, setBulkDeleteLoading] = useState(false);
 
   const toggleSelectItem = (id: string): void => {
-    setSelectedItems(prev => {
+    setSelectedItems((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(id)) {
         newSet.delete(id);
@@ -135,63 +159,71 @@ export const History: React.FC = () => {
     if (selectedItems.size === classifications.length) {
       setSelectedItems(new Set());
     } else {
-      setSelectedItems(new Set(classifications.map(item => item._id!)));
+      setSelectedItems(new Set(classifications.map((item) => item._id!)));
     }
   };
 
   const bulkDelete = async (): Promise<void> => {
     if (selectedItems.size === 0) return;
-    
+
     setBulkDeleteLoading(true);
     try {
       // Delete all selected items
       await Promise.all(
-        Array.from(selectedItems).map(id => classificationAPI.delete(id))
+        Array.from(selectedItems).map((id) => classificationAPI.delete(id))
       );
-      
+
       // Remove from local state
-      setClassifications(prev => prev.filter(item => !selectedItems.has(item._id!)));
-      
+      setClassifications((prev) =>
+        prev.filter((item) => !selectedItems.has(item._id!))
+      );
+
       // Update pagination
-      setPagination(prev => ({
+      setPagination((prev) => ({
         ...prev,
-        total: prev.total - selectedItems.size
+        total: prev.total - selectedItems.size,
       }));
-      
+
       toast.success(`${selectedItems.size} klasifikasi berhasil dihapus`);
       setSelectedItems(new Set());
     } catch (error: any) {
-      console.error('Error bulk deleting:', error);
-      toast.error('Gagal menghapus beberapa klasifikasi');
+      console.error("Error bulk deleting:", error);
+      toast.error("Gagal menghapus beberapa klasifikasi");
     } finally {
       setBulkDeleteLoading(false);
     }
   };
 
   // Fix: Proper type handling for filter changes
-  const handleFilterChange = (key: keyof FilterState, value: string | number): void => {
-    setFilter(prev => ({
+  const handleFilterChange = (
+    key: keyof FilterState,
+    value: string | number
+  ): void => {
+    setFilter((prev) => ({
       ...prev,
       [key]: value,
-      page: key !== 'page' ? 1 : value as number // Reset page when changing other filters
+      page: key !== "page" ? 1 : (value as number), // Reset page when changing other filters
     }));
   };
 
-  const downloadImage = async (imageUrl: string, filename: string): Promise<void> => {
+  const downloadImage = async (
+    imageUrl: string,
+    filename: string
+  ): Promise<void> => {
     try {
       const response = await fetch(imageUrl);
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = url;
       a.download = filename;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
-      toast.success('Gambar berhasil didownload');
+      toast.success("Gambar berhasil didownload");
     } catch (error) {
-      toast.error('Gagal download gambar');
+      toast.error("Gagal download gambar");
     }
   };
 
@@ -200,16 +232,19 @@ export const History: React.FC = () => {
       total: classifications.length,
       byMethod: {} as Record<string, number>,
       byResult: {} as Record<string, number>,
-      avgConfidence: 0
+      avgConfidence: 0,
     };
 
-    classifications.forEach(item => {
+    classifications.forEach((item) => {
       stats.byMethod[item.method] = (stats.byMethod[item.method] || 0) + 1;
-      stats.byResult[item.classificationResult] = (stats.byResult[item.classificationResult] || 0) + 1;
+      stats.byResult[item.classificationResult] =
+        (stats.byResult[item.classificationResult] || 0) + 1;
     });
 
     if (classifications.length > 0) {
-      stats.avgConfidence = classifications.reduce((sum, item) => sum + item.confidence, 0) / classifications.length;
+      stats.avgConfidence =
+        classifications.reduce((sum, item) => sum + item.confidence, 0) /
+        classifications.length;
     }
 
     return stats;
@@ -220,7 +255,9 @@ export const History: React.FC = () => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <Clock className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-600">Silakan login untuk melihat riwayat klasifikasi</p>
+          <p className="text-gray-600">
+            Silakan login untuk melihat riwayat klasifikasi
+          </p>
         </div>
       </div>
     );
@@ -242,43 +279,67 @@ export const History: React.FC = () => {
 
         {/* Statistics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <motion.div
+            className="bg-white rounded-lg shadow-md p-6"
+            whileHover={{
+              y: -10,
+              scale: 1.03,
+            }}
+          >
             <div className="flex items-center">
               <div className="bg-blue-100 p-3 rounded-full">
                 <BarChart3 className="h-6 w-6 text-blue-600" />
               </div>
               <div className="ml-4">
                 <p className="text-sm text-gray-600">Total Klasifikasi</p>
-                <p className="text-2xl font-bold text-gray-900">{pagination.total}</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {pagination.total}
+                </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <motion.div
+            className="bg-white rounded-lg shadow-md p-6"
+            whileHover={{
+              y: -10,
+              scale: 1.03,
+            }}
+          >
             <div className="flex items-center">
               <div className="bg-green-100 p-3 rounded-full">
                 <Camera className="h-6 w-6 text-green-600" />
               </div>
               <div className="ml-4">
                 <p className="text-sm text-gray-600">Via Kamera</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.byMethod.camera || 0}</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {stats.byMethod.camera || 0}
+                </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <motion.div className="bg-white rounded-lg shadow-md p-6" whileHover={{
+              y: -10,
+              scale: 1.03,
+            }}>
             <div className="flex items-center">
               <div className="bg-purple-100 p-3 rounded-full">
                 <Upload className="h-6 w-6 text-purple-600" />
               </div>
               <div className="ml-4">
                 <p className="text-sm text-gray-600">Via Upload</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.byMethod.upload || 0}</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {stats.byMethod.upload || 0}
+                </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <motion.div className="bg-white rounded-lg shadow-md p-6" whileHover={{
+              y: -10,
+              scale: 1.03,
+            }}>
             <div className="flex items-center">
               <div className="bg-orange-100 p-3 rounded-full">
                 <Eye className="h-6 w-6 text-orange-600" />
@@ -290,7 +351,7 @@ export const History: React.FC = () => {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Filters and Bulk Actions */}
@@ -303,15 +364,19 @@ export const History: React.FC = () => {
                   <label className="flex items-center space-x-2">
                     <input
                       type="checkbox"
-                      checked={selectedItems.size === classifications.length && classifications.length > 0}
+                      checked={
+                        selectedItems.size === classifications.length &&
+                        classifications.length > 0
+                      }
                       onChange={selectAll}
                       className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
                     />
                     <span className="text-sm text-gray-700">
-                      Pilih Semua ({selectedItems.size}/{classifications.length})
+                      Pilih Semua ({selectedItems.size}/{classifications.length}
+                      )
                     </span>
                   </label>
-                  
+
                   {selectedItems.size > 0 && (
                     <button
                       onClick={bulkDelete}
@@ -334,15 +399,24 @@ export const History: React.FC = () => {
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex items-center space-x-2">
                 <Filter className="h-5 w-5 text-gray-400" />
-                <span className="text-sm font-medium text-gray-700">Filter:</span>
+                <span className="text-sm font-medium text-gray-700">
+                  Filter:
+                </span>
               </div>
 
               <div className="flex flex-col md:flex-row gap-4 flex-1">
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Metode</label>
+                  <label className="block text-sm text-gray-600 mb-1">
+                    Metode
+                  </label>
                   <select
                     value={filter.method}
-                    onChange={(e) => handleFilterChange('method', e.target.value as 'all' | 'upload' | 'camera')}
+                    onChange={(e) =>
+                      handleFilterChange(
+                        "method",
+                        e.target.value as "all" | "upload" | "camera"
+                      )
+                    }
                     className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   >
                     <option value="all">Semua Metode</option>
@@ -352,15 +426,19 @@ export const History: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Jenis Sampah</label>
+                  <label className="block text-sm text-gray-600 mb-1">
+                    Jenis Sampah
+                  </label>
                   <select
                     value={filter.result}
-                    onChange={(e) => handleFilterChange('result', e.target.value)}
+                    onChange={(e) =>
+                      handleFilterChange("result", e.target.value)
+                    }
                     className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   >
-                    {wasteTypes.map(type => (
+                    {wasteTypes.map((type) => (
                       <option key={type} value={type}>
-                        {type === 'all' ? 'Semua Jenis' : type}
+                        {type === "all" ? "Semua Jenis" : type}
                       </option>
                     ))}
                   </select>
@@ -368,7 +446,9 @@ export const History: React.FC = () => {
 
                 <div className="flex items-end">
                   <button
-                    onClick={() => setFilter({ method: 'all', result: 'all', page: 1 })}
+                    onClick={() =>
+                      setFilter({ method: "all", result: "all", page: 1 })
+                    }
                     className="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors text-sm"
                   >
                     Reset Filter
@@ -417,32 +497,42 @@ export const History: React.FC = () => {
               <div className="mt-8 flex justify-center">
                 <div className="flex space-x-2">
                   <button
-                    onClick={() => handleFilterChange('page', Math.max(1, filter.page - 1))}
+                    onClick={() =>
+                      handleFilterChange("page", Math.max(1, filter.page - 1))
+                    }
                     disabled={filter.page <= 1}
                     className="px-3 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
                   >
                     Previous
                   </button>
-                  
-                  {Array.from({ length: Math.min(5, pagination.pages) }, (_, i) => {
-                    const page = i + 1;
-                    return (
-                      <button
-                        key={page}
-                        onClick={() => handleFilterChange('page', page)}
-                        className={`px-3 py-2 border rounded-lg ${
-                          filter.page === page
-                            ? 'bg-primary-600 text-white border-primary-600'
-                            : 'border-gray-300 hover:bg-gray-50'
-                        }`}
-                      >
-                        {page}
-                      </button>
-                    );
-                  })}
-                  
+
+                  {Array.from(
+                    { length: Math.min(5, pagination.pages) },
+                    (_, i) => {
+                      const page = i + 1;
+                      return (
+                        <button
+                          key={page}
+                          onClick={() => handleFilterChange("page", page)}
+                          className={`px-3 py-2 border rounded-lg ${
+                            filter.page === page
+                              ? "bg-primary-600 text-white border-primary-600"
+                              : "border-gray-300 hover:bg-gray-50"
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      );
+                    }
+                  )}
+
                   <button
-                    onClick={() => handleFilterChange('page', Math.min(pagination.pages, filter.page + 1))}
+                    onClick={() =>
+                      handleFilterChange(
+                        "page",
+                        Math.min(pagination.pages, filter.page + 1)
+                      )
+                    }
                     disabled={filter.page >= pagination.pages}
                     className="px-3 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
                   >
@@ -478,13 +568,16 @@ export const History: React.FC = () => {
                 <div className="bg-red-100 p-2 rounded-full">
                   <AlertCircle className="h-6 w-6 text-red-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900">Konfirmasi Hapus</h3>
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Konfirmasi Hapus
+                </h3>
               </div>
-              
+
               <p className="text-gray-600 mb-6">
-                Apakah Anda yakin ingin menghapus klasifikasi ini? Tindakan ini tidak dapat dibatalkan.
+                Apakah Anda yakin ingin menghapus klasifikasi ini? Tindakan ini
+                tidak dapat dibatalkan.
               </p>
-              
+
               <div className="flex space-x-3 justify-end">
                 <button
                   onClick={() => setShowDeleteConfirm(null)}
@@ -523,50 +616,54 @@ interface HistoryCardProps {
   onToggleSelect: () => void;
 }
 
-const HistoryCard: React.FC<HistoryCardProps> = ({ 
-  classification, 
-  onDownload, 
-  onDelete, 
+const HistoryCard: React.FC<HistoryCardProps> = ({
+  classification,
+  onDownload,
+  onDelete,
   deleteLoading,
   isSelected,
-  onToggleSelect
+  onToggleSelect,
 }) => {
   const [showFullImage, setShowFullImage] = useState<boolean>(false);
 
   const getConfidenceColor = (confidence: number): string => {
-    if (confidence >= 80) return 'text-green-600 bg-green-100';
-    if (confidence >= 60) return 'text-yellow-600 bg-yellow-100';
-    return 'text-red-600 bg-red-100';
+    if (confidence >= 80) return "text-green-600 bg-green-100";
+    if (confidence >= 60) return "text-yellow-600 bg-yellow-100";
+    return "text-red-600 bg-red-100";
   };
 
   const getWasteTypeColor = (type: string): string => {
     const colors: { [key: string]: string } = {
-      'Cardboard': 'bg-yellow-100 text-yellow-800',
-      'Food Organics': 'bg-green-100 text-green-800',
-      'Glass': 'bg-blue-100 text-blue-800',
-      'Metal': 'bg-gray-100 text-gray-800',
-      'Miscellaneous Trash': 'bg-red-100 text-red-800',
-      'Paper': 'bg-orange-100 text-orange-800',
-      'Plastic': 'bg-purple-100 text-purple-800',
-      'Textile Trash': 'bg-pink-100 text-pink-800',
-      'Vegetation': 'bg-emerald-100 text-emerald-800'
+      Cardboard: "bg-yellow-100 text-yellow-800",
+      "Food Organics": "bg-green-100 text-green-800",
+      Glass: "bg-blue-100 text-blue-800",
+      Metal: "bg-gray-100 text-gray-800",
+      "Miscellaneous Trash": "bg-red-100 text-red-800",
+      Paper: "bg-orange-100 text-orange-800",
+      Plastic: "bg-purple-100 text-purple-800",
+      "Textile Trash": "bg-pink-100 text-pink-800",
+      Vegetation: "bg-emerald-100 text-emerald-800",
     };
-    return colors[type] || 'bg-gray-100 text-gray-800';
+    return colors[type] || "bg-gray-100 text-gray-800";
   };
 
   const formatDate = (dateString: string): string => {
-    return new Date(dateString).toLocaleDateString('id-ID', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    return new Date(dateString).toLocaleDateString("id-ID", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
   return (
     <>
-      <div className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow ${isSelected ? 'ring-2 ring-primary-500' : ''}`}>
+      <div
+        className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow ${
+          isSelected ? "ring-2 ring-primary-500" : ""
+        }`}
+      >
         {/* Selection Checkbox */}
         <div className="absolute top-2 left-2 z-10">
           <input
@@ -579,8 +676,8 @@ const HistoryCard: React.FC<HistoryCardProps> = ({
 
         {classification.imageUrl && (
           <div className="relative">
-            <img 
-              src={classification.imageUrl} 
+            <img
+              src={classification.imageUrl}
               alt="Classified item"
               className="w-full h-48 object-cover cursor-pointer"
               onClick={() => setShowFullImage(true)}
@@ -600,7 +697,7 @@ const HistoryCard: React.FC<HistoryCardProps> = ({
                 onClick={(e) => {
                   e.stopPropagation();
                   onDownload(
-                    classification.imageUrl, 
+                    classification.imageUrl,
                     `ecosort-${classification._id}.jpg`
                   );
                 }}
@@ -627,29 +724,39 @@ const HistoryCard: React.FC<HistoryCardProps> = ({
             </div>
           </div>
         )}
-        
+
         <div className="p-4">
           <div className="flex items-center justify-between mb-2">
-            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getWasteTypeColor(classification.classificationResult)}`}>
+            <span
+              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getWasteTypeColor(
+                classification.classificationResult
+              )}`}
+            >
               {classification.classificationResult}
             </span>
             <div className="flex items-center space-x-1">
-              {classification.method === 'camera' ? (
+              {classification.method === "camera" ? (
                 <Camera className="h-4 w-4 text-gray-500" />
               ) : (
                 <Upload className="h-4 w-4 text-gray-500" />
               )}
             </div>
           </div>
-          
+
           <div className="flex items-center justify-between text-sm">
-            <span className={`px-2 py-1 rounded-full text-xs font-medium ${getConfidenceColor(classification.confidence)}`}>
+            <span
+              className={`px-2 py-1 rounded-full text-xs font-medium ${getConfidenceColor(
+                classification.confidence
+              )}`}
+            >
               {classification.confidence.toFixed(1)}% yakin
             </span>
             {classification.createdAt && (
               <div className="flex items-center space-x-1 text-gray-500">
                 <Clock className="h-3 w-3" />
-                <span className="text-xs">{formatDate(classification.createdAt)}</span>
+                <span className="text-xs">
+                  {formatDate(classification.createdAt)}
+                </span>
               </div>
             )}
           </div>
@@ -658,7 +765,7 @@ const HistoryCard: React.FC<HistoryCardProps> = ({
 
       {/* Full Image Modal */}
       {showFullImage && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
           onClick={() => setShowFullImage(false)}
         >
@@ -675,8 +782,12 @@ const HistoryCard: React.FC<HistoryCardProps> = ({
               <X className="h-5 w-5" />
             </button>
             <div className="absolute bottom-4 left-4 bg-black bg-opacity-50 text-white p-3 rounded-lg">
-              <p className="font-semibold">{classification.classificationResult}</p>
-              <p className="text-sm">Confidence: {classification.confidence.toFixed(1)}%</p>
+              <p className="font-semibold">
+                {classification.classificationResult}
+              </p>
+              <p className="text-sm">
+                Confidence: {classification.confidence.toFixed(1)}%
+              </p>
               <p className="text-xs">{formatDate(classification.createdAt!)}</p>
             </div>
           </div>

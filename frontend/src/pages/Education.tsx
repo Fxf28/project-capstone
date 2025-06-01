@@ -1,32 +1,54 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Added missing import
-import { BookOpen, Recycle, Leaf, Trash2, Search, Filter, AlertCircle, RefreshCw, Eye } from 'lucide-react';
-import { useEducation } from '../hooks/useEducation';
-import { LoadingSpinner } from '../components/LoadingSpinner';
-import { EducationModal } from '../components/EducationModal';
-import type { EducationContent } from '../types';
+import React, { useState } from "react";
+import { Link } from "react-router-dom"; // Added missing import
+import {
+  BookOpen,
+  Recycle,
+  Leaf,
+  Trash2,
+  Search,
+  Filter,
+  AlertCircle,
+  RefreshCw,
+  Eye,
+} from "lucide-react";
+import { useEducation } from "../hooks/useEducation";
+import { LoadingSpinner } from "../components/LoadingSpinner";
+import { EducationModal } from "../components/EducationModal";
+import type { EducationContent } from "../types";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const Education: React.FC = () => {
   const { content, loading, error, fetchContent } = useEducation();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [selectedArticle, setSelectedArticle] = useState<EducationContent | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedArticle, setSelectedArticle] =
+    useState<EducationContent | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Animate variants
+  const hover = {
+    whileHover: { scale: 1.2 },
+    whileTap: { scale: 0.8 },
+  };
+
   const categories = [
-    { value: 'all', label: 'Semua', icon: BookOpen },
-    { value: 'recycling', label: 'Daur Ulang', icon: Recycle },
-    { value: 'composting', label: 'Kompos', icon: Leaf },
-    { value: 'reduction', label: 'Pengurangan', icon: Trash2 }
+    { value: "all", label: "Semua", icon: BookOpen },
+    { value: "recycling", label: "Daur Ulang", icon: Recycle },
+    { value: "composting", label: "Kompos", icon: Leaf },
+    { value: "reduction", label: "Pengurangan", icon: Trash2 },
   ];
 
   // Safe filtering - ensure content is array
-  const filteredContent = Array.isArray(content) ? content.filter(item => {
-    const matchesSearch = item.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.content?.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  }) : [];
+  const filteredContent = Array.isArray(content)
+    ? content.filter((item) => {
+        const matchesSearch =
+          item.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.content?.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesCategory =
+          selectedCategory === "all" || item.category === selectedCategory;
+        return matchesSearch && matchesCategory;
+      })
+    : [];
 
   const openArticleDetail = (article: EducationContent) => {
     setSelectedArticle(article);
@@ -47,7 +69,7 @@ export const Education: React.FC = () => {
             alt={item.title}
             className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
             onError={(e) => {
-              (e.target as HTMLImageElement).style.display = 'none';
+              (e.target as HTMLImageElement).style.display = "none";
             }}
           />
           <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 flex items-center justify-center">
@@ -73,11 +95,17 @@ export const Education: React.FC = () => {
 
       <div className="p-6">
         <div className="flex items-center justify-between mb-2">
-          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${item.category === 'recycling' ? 'bg-blue-100 text-blue-800' :
-              item.category === 'composting' ? 'bg-green-100 text-green-800' :
-                'bg-orange-100 text-orange-800'
-            }`}>
-            {categories.find(cat => cat.value === item.category)?.label || item.category}
+          <span
+            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+              item.category === "recycling"
+                ? "bg-blue-100 text-blue-800"
+                : item.category === "composting"
+                ? "bg-green-100 text-green-800"
+                : "bg-orange-100 text-orange-800"
+            }`}
+          >
+            {categories.find((cat) => cat.value === item.category)?.label ||
+              item.category}
           </span>
         </div>
 
@@ -88,17 +116,16 @@ export const Education: React.FC = () => {
         <p className="text-gray-600 leading-relaxed mb-4 line-clamp-3">
           {item.content && item.content.length > 150
             ? `${item.content.substring(0, 150)}...`
-            : item.content
-          }
+            : item.content}
         </p>
 
         <div className="flex items-center justify-between">
           {item.createdAt && (
             <div className="text-sm text-gray-500">
-              {new Date(item.createdAt).toLocaleDateString('id-ID', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
+              {new Date(item.createdAt).toLocaleDateString("id-ID", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
               })}
             </div>
           )}
@@ -166,7 +193,8 @@ export const Education: React.FC = () => {
             Edukasi Lingkungan
           </h1>
           <p className="text-gray-600">
-            Pelajari cara mengelola sampah dengan benar untuk lingkungan yang lebih baik
+            Pelajari cara mengelola sampah dengan benar untuk lingkungan yang
+            lebih baik
           </p>
         </div>
 
@@ -193,7 +221,7 @@ export const Education: React.FC = () => {
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
-                {categories.map(category => (
+                {categories.map((category) => (
                   <option key={category.value} value={category.value}>
                     {category.label}
                   </option>
@@ -205,16 +233,17 @@ export const Education: React.FC = () => {
 
         {/* Category Tabs */}
         <div className="flex flex-wrap gap-2 mb-8">
-          {categories.map(category => {
+          {categories.map((category) => {
             const Icon = category.icon;
             return (
               <button
                 key={category.value}
                 onClick={() => setSelectedCategory(category.value)}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-colors ${selectedCategory === category.value
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-white text-gray-600 hover:bg-gray-50'
-                  }`}
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-colors ${
+                  selectedCategory === category.value
+                    ? "bg-primary-600 text-white"
+                    : "bg-white text-gray-600 hover:bg-gray-50"
+                }`}
               >
                 <Icon className="h-4 w-4" />
                 <span>{category.label}</span>
@@ -226,7 +255,7 @@ export const Education: React.FC = () => {
         {/* Content Grid */}
         {filteredContent.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredContent.map(item => (
+            {filteredContent.map((item) => (
               <EducationCard key={item._id || Math.random()} item={item} />
             ))}
           </div>
@@ -234,13 +263,14 @@ export const Education: React.FC = () => {
           <div className="text-center py-12">
             <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">
-              {content.length === 0 ? 'Belum ada artikel edukasi' : 'Tidak ada artikel ditemukan'}
+              {content.length === 0
+                ? "Belum ada artikel edukasi"
+                : "Tidak ada artikel ditemukan"}
             </h3>
             <p className="text-gray-600">
               {content.length === 0
-                ? 'Artikel edukasi akan segera ditambahkan'
-                : 'Coba ubah kata kunci pencarian atau kategori filter'
-              }
+                ? "Artikel edukasi akan segera ditambahkan"
+                : "Coba ubah kata kunci pencarian atau kategori filter"}
             </p>
           </div>
         )}
@@ -249,27 +279,45 @@ export const Education: React.FC = () => {
         <div className="mt-12 bg-gradient-to-r from-green-500 to-blue-600 rounded-lg p-8 text-white">
           <h2 className="text-2xl font-bold mb-6">Tips Pengelolaan Sampah</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center">
+            <motion.div
+              className="text-center"
+              whileHover={{
+                y: -10,
+                scale: 1.03,
+              }}
+            >
               <Trash2 className="h-12 w-12 mx-auto mb-4 opacity-80" />
               <h3 className="text-lg font-semibold mb-2">Reduce</h3>
               <p className="text-sm opacity-90">
                 Kurangi penggunaan barang sekali pakai
               </p>
-            </div>
-            <div className="text-center">
+            </motion.div>
+            <motion.div
+              className="text-center"
+              whileHover={{
+                y: -10,
+                scale: 1.03,
+              }}
+            >
               <Recycle className="h-12 w-12 mx-auto mb-4 opacity-80" />
               <h3 className="text-lg font-semibold mb-2">Reuse</h3>
               <p className="text-sm opacity-90">
                 Gunakan kembali barang yang masih layak
               </p>
-            </div>
-            <div className="text-center">
+            </motion.div>
+            <motion.div
+              className="text-center"
+              whileHover={{
+                y: -10,
+                scale: 1.03,
+              }}
+            >
               <Leaf className="h-12 w-12 mx-auto mb-4 opacity-80" />
               <h3 className="text-lg font-semibold mb-2">Recycle</h3>
               <p className="text-sm opacity-90">
                 Daur ulang sampah menjadi produk baru
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
