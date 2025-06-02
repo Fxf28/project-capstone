@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Leaf, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 
-export const Footer: React.FC = () => {
+const Footer: React.FC = () => {
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,18 +18,18 @@ export const Footer: React.FC = () => {
               Platform klasifikasi sampah berbasis AI yang membantu Anda mengelola sampah dengan lebih efektif dan ramah lingkungan.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors">
+              <Link to="/" className="text-gray-400 hover:text-primary-400 transition-colors">
                 <Facebook className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors">
+              </Link>
+              <Link to="/" className="text-gray-400 hover:text-primary-400 transition-colors">
                 <Twitter className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors">
+              </Link>
+              <Link to="/" className="text-gray-400 hover:text-primary-400 transition-colors">
                 <Instagram className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors">
+              </Link>
+              <Link to="/" className="text-gray-400 hover:text-primary-400 transition-colors">
                 <Youtube className="h-5 w-5" />
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -79,21 +79,6 @@ export const Footer: React.FC = () => {
                   Riwayat Klasifikasi
                 </Link>
               </li>
-              <li>
-                <a href="#" className="text-gray-300 hover:text-primary-400 transition-colors text-sm">
-                  Panduan Penggunaan
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-300 hover:text-primary-400 transition-colors text-sm">
-                  FAQ
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-300 hover:text-primary-400 transition-colors text-sm">
-                  Dukungan
-                </a>
-              </li>
             </ul>
           </div>
 
@@ -126,10 +111,11 @@ export const Footer: React.FC = () => {
             <div className="text-gray-400 text-sm">
               © {new Date().getFullYear()} EcoSort. Semua hak dilindungi.
             </div>
-            </div>
           </div>
         </div>
       </div>
     </footer>
   );
 };
+
+export default Footer;
