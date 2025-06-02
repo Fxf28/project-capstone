@@ -126,16 +126,6 @@ export const Footer: React.FC = () => {
             <div className="text-gray-400 text-sm">
               © {new Date().getFullYear()} EcoSort. Semua hak dilindungi.
             </div>
-            <div className="flex space-x-6">
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors text-sm">
-                Kebijakan Privasi
-              </a>
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors text-sm">
-                Syarat & Ketentuan
-              </a>
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors text-sm">
-                Cookie Policy
-              </a>
             </div>
           </div>
         </div>
