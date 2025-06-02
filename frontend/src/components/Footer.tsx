@@ -107,12 +107,13 @@ const Footer: React.FC = () => {
 
         {/* Bottom Footer */}
         <div className="border-t border-gray-800 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-gray-400 text-sm">
+          <div className="flex justify-center items-center">
+            <div className="text-gray-400 text-sm text-center">
               © {new Date().getFullYear()} EcoSort. Semua hak dilindungi.
             </div>
           </div>
         </div>
+
       </div>
     </footer>
   );
