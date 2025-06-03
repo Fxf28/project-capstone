@@ -29,7 +29,7 @@ export const About: React.FC = () => {
     {
       name: 'Fadli Ahmad Yazid',
       role: 'Machine Learning',
-      photo: 'https://i.ibb.co/dsv0zQxp/IMG-20250119-213905-407.webp',
+      photo: 'https://avatars.githubusercontent.com/u/165824829?s=400&u=621b38a162ccbe41865aa59c3318b351f094efbe&v=4',
       linkedin: 'https://www.linkedin.com/in/fadli-ahmad-yazid-6a2106359',
       github: 'https://github.com/FadliAhmadYazid '
     },
