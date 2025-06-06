@@ -767,23 +767,26 @@ const HistoryCard: React.FC<HistoryCardProps> = ({
       {/* Full Image Modal */}
       {showFullImage && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4 overflow-auto"
           onClick={() => setShowFullImage(false)}
         >
-          <div className="relative max-w-4xl max-h-full">
+          <div
+            className="relative bg-white rounded-lg max-w-4xl w-full max-h-[90vh] flex flex-col items-center justify-center p-4"
+            onClick={(e) => e.stopPropagation()}
+          >
             <img
               src={classification.imageUrl}
               alt="Full size classified item"
-              className="max-w-full max-h-full object-contain rounded-lg"
+              className="w-full max-h-[70vh] object-contain rounded-lg"
             />
             <button
-              title="setShowFullImage"
+              title="Close Modal"
               onClick={() => setShowFullImage(false)}
               className="absolute top-4 right-4 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70"
             >
               <X className="h-5 w-5" />
             </button>
-            <div className="absolute bottom-4 left-4 bg-black bg-opacity-50 text-white p-3 rounded-lg">
+            <div className="mt-4 bg-black bg-opacity-50 text-white p-3 rounded-lg w-full text-left">
               <p className="font-semibold">
                 {classification.classificationResult}
               </p>
@@ -795,6 +798,7 @@ const HistoryCard: React.FC<HistoryCardProps> = ({
           </div>
         </div>
       )}
+
     </>
   );
 };

@@ -192,10 +192,11 @@ export const Classify: React.FC = () => {
                       <img
                         src={previewUrl}
                         alt="Preview"
-                        className="w-full h-64 object-cover rounded-lg border"
+                        className="w-full h-64 object-contain rounded-lg border bg-white"
                       />
                     </div>
                   )}
+
 
                   {/* Classification Result */}
                   {result && (
