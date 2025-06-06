@@ -8,6 +8,7 @@ import { Navbar } from './components/Navbar';
 import { LoadingSpinner } from './components/LoadingSpinner';
 import { TensorFlowErrorBoundary } from './components/ErrorBoundary';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 // Pages
 import { Home } from './pages/Home';
@@ -131,11 +132,13 @@ const App: React.FC = () => {
   return (
     <TensorFlowErrorBoundary>
       <Router>
+        <ScrollToTop />
         <div className="App min-h-screen bg-gray-50">
           <Navbar />
 
           <main>
             <Routes>
+
               {/* Public Routes */}
               <Route path="/" element={<Home />} />
               <Route path="/classify" element={<Classify />} />
