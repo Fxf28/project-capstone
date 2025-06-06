@@ -52,18 +52,38 @@ const Footer: React.FC = () => {
               mengelola sampah dengan lebih efektif dan ramah lingkungan.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors">
+              <Link
+                to="https://facebook.com"
+                className="text-gray-400 hover:text-primary-400 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Facebook className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors">
+              </Link>
+              <Link
+                to="https://x.com"
+                className="text-gray-400 hover:text-primary-400 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Twitter className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors">
+              </Link>
+              <Link
+                to="https://instagram.com"
+                className="text-gray-400 hover:text-primary-400 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Instagram className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors">
+              </Link>
+              <Link
+                to="https://youtube.com"
+                className="text-gray-400 hover:text-primary-400 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Youtube className="h-5 w-5" />
-              </a>
+              </Link>
             </div>
           </div>
 
