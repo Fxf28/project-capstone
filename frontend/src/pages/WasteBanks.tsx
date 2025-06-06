@@ -36,10 +36,10 @@ export const WasteBanks: React.FC = () => {
   useEffect(() => {
     const params = userLocation
       ? {
-          latitude: userLocation.lat,
-          longitude: userLocation.lng,
-          radius: 50, // 50km radius
-        }
+        latitude: userLocation.lat,
+        longitude: userLocation.lng,
+        radius: 50, // 50km radius
+      }
       : undefined;
 
     fetchWasteBanks(params);
@@ -87,9 +87,9 @@ export const WasteBanks: React.FC = () => {
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(lat1 * (Math.PI / 180)) *
-        Math.cos(lat2 * (Math.PI / 180)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
+      Math.cos(lat2 * (Math.PI / 180)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
   };
@@ -105,11 +105,11 @@ export const WasteBanks: React.FC = () => {
       ...bank,
       distance: userLocation
         ? calculateDistance(
-            userLocation.lat,
-            userLocation.lng,
-            bank.latitude,
-            bank.longitude
-          )
+          userLocation.lat,
+          userLocation.lng,
+          bank.latitude,
+          bank.longitude
+        )
         : bank.distance, // Use distance from API if available
     }))
     .sort((a, b) => {
@@ -127,10 +127,10 @@ export const WasteBanks: React.FC = () => {
   const handleRefresh = () => {
     const params = userLocation
       ? {
-          latitude: userLocation.lat,
-          longitude: userLocation.lng,
-          radius: 50,
-        }
+        latitude: userLocation.lat,
+        longitude: userLocation.lng,
+        radius: 50,
+      }
       : undefined;
 
     fetchWasteBanks(params);
@@ -141,11 +141,13 @@ export const WasteBanks: React.FC = () => {
   }> = ({ bank }) => (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       {bank.imageUrl && (
-        <img
-          src={bank.imageUrl}
-          alt={bank.name}
-          className="w-full h-48 object-cover"
-        />
+        <div className="aspect-video w-full bg-gray-100">
+          <img
+            src={bank.imageUrl}
+            alt={bank.name}
+            className="w-full h-full object-contain rounded-t-lg"
+          />
+        </div>
       )}
       <div className="p-6">
         <div className="flex items-start justify-between mb-4">
@@ -220,11 +222,10 @@ export const WasteBanks: React.FC = () => {
         {/* Status indicator */}
         <div className="mt-3 flex items-center justify-between">
           <span
-            className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-              bank.isActive
-                ? "bg-green-100 text-green-800"
-                : "bg-red-100 text-red-800"
-            }`}
+            className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${bank.isActive
+              ? "bg-green-100 text-green-800"
+              : "bg-red-100 text-red-800"
+              }`}
           >
             {bank.isActive ? "🟢 Buka" : "🔴 Tutup"}
           </span>
@@ -271,22 +272,20 @@ export const WasteBanks: React.FC = () => {
             <div className="flex bg-gray-100 rounded-lg p-1">
               <button
                 onClick={() => setViewMode("grid")}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-md transition-colors ${
-                  viewMode === "grid"
-                    ? "bg-white text-primary-600 shadow-sm"
-                    : "text-gray-600 hover:text-gray-800"
-                }`}
+                className={`flex items-center space-x-2 px-4 py-2 rounded-md transition-colors ${viewMode === "grid"
+                  ? "bg-white text-primary-600 shadow-sm"
+                  : "text-gray-600 hover:text-gray-800"
+                  }`}
               >
                 <Grid3X3 className="h-4 w-4" />
                 <span>Grid</span>
               </button>
               <button
                 onClick={() => setViewMode("map")}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-md transition-colors ${
-                  viewMode === "map"
-                    ? "bg-white text-primary-600 shadow-sm"
-                    : "text-gray-600 hover:text-gray-800"
-                }`}
+                className={`flex items-center space-x-2 px-4 py-2 rounded-md transition-colors ${viewMode === "map"
+                  ? "bg-white text-primary-600 shadow-sm"
+                  : "text-gray-600 hover:text-gray-800"
+                  }`}
               >
                 <MapIcon className="h-4 w-4" />
                 <span>Peta</span>

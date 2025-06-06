@@ -28,7 +28,7 @@ const WasteBankModal: React.FC<WasteBankModalProps> = ({ wasteBank, onClose, onS
 
   // Predefined waste types
   const wasteTypes = [
-    'Plastik', 'Kertas', 'Logam', 'Kaca', 'Kardus', 
+    'Plastik', 'Kertas', 'Logam', 'Kaca', 'Kardus',
     'Botol Plastik', 'Kaleng', 'Elektronik', 'Karet',
     'Tekstil', 'Minyak Jelantah', 'Sampah Organik'
   ];
@@ -142,6 +142,7 @@ const WasteBankModal: React.FC<WasteBankModalProps> = ({ wasteBank, onClose, onS
             {wasteBank ? 'Edit Bank Sampah' : 'Tambah Bank Sampah'}
           </h2>
           <button
+            title='Edit / Tambah'
             onClick={onClose}
             className="text-gray-400 hover:text-gray-600 transition-colors"
           >
@@ -261,7 +262,7 @@ const WasteBankModal: React.FC<WasteBankModalProps> = ({ wasteBank, onClose, onS
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Jenis Sampah yang Diterima *
             </label>
-            
+
             {/* Selected Wastes */}
             <div className="mb-3">
               <div className="flex flex-wrap gap-2">
@@ -272,6 +273,7 @@ const WasteBankModal: React.FC<WasteBankModalProps> = ({ wasteBank, onClose, onS
                   >
                     {waste}
                     <button
+                      title='Accepted'
                       onClick={() => removeWasteType(waste)}
                       className="ml-2 text-green-600 hover:text-green-800"
                     >
@@ -290,11 +292,10 @@ const WasteBankModal: React.FC<WasteBankModalProps> = ({ wasteBank, onClose, onS
                   type="button"
                   onClick={() => addWasteType(wasteType)}
                   disabled={acceptedWastes.includes(wasteType)}
-                  className={`px-3 py-2 text-sm rounded-lg border transition-colors ${
-                    acceptedWastes.includes(wasteType)
-                      ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
-                      : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-gray-400'
-                  }`}
+                  className={`px-3 py-2 text-sm rounded-lg border transition-colors ${acceptedWastes.includes(wasteType)
+                    ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
+                    : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-gray-400'
+                    }`}
                 >
                   {wasteType}
                 </button>
@@ -333,6 +334,7 @@ const WasteBankModal: React.FC<WasteBankModalProps> = ({ wasteBank, onClose, onS
             <div className="space-y-3">
               <div className="flex items-center space-x-2">
                 <input
+                  title='Foto'
                   type="file"
                   accept="image/*"
                   onChange={(e) => setImageFile(e.target.files?.[0] || null)}
@@ -347,6 +349,7 @@ const WasteBankModal: React.FC<WasteBankModalProps> = ({ wasteBank, onClose, onS
                     className="h-32 w-full object-cover rounded-lg border"
                   />
                   <button
+                    title='URL or File'
                     onClick={() => {
                       setImageFile(null);
                       setImageUrl('');

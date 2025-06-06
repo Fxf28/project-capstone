@@ -19,10 +19,10 @@ interface WasteBankMapProps {
   onBankSelect: (bank: WasteBank) => void;
 }
 
-const WasteBankMap: React.FC<WasteBankMapProps> = ({ 
-  wasteBanks, 
-  userLocation, 
-  onBankSelect 
+const WasteBankMap: React.FC<WasteBankMapProps> = ({
+  wasteBanks,
+  userLocation,
+  onBankSelect
 }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
@@ -108,9 +108,9 @@ const WasteBankMap: React.FC<WasteBankMapProps> = ({
           <p style="font-size: 12px; color: #6b7280; margin-bottom: 8px;">${bank.address}</p>
           ${bank.distance ? `<p style="font-size: 12px; color: #2563eb; margin-bottom: 8px;">📍 ${bank.distance.toFixed(1)} km</p>` : ''}
           <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px;">
-            ${bank.acceptedWastes.slice(0, 3).map(waste => 
-              `<span style="background: #dcfce7; color: #166534; font-size: 10px; padding: 2px 8px; border-radius: 12px;">${waste}</span>`
-            ).join('')}
+            ${bank.acceptedWastes.slice(0, 3).map(waste =>
+        `<span style="background: #dcfce7; color: #166534; font-size: 10px; padding: 2px 8px; border-radius: 12px;">${waste}</span>`
+      ).join('')}
             ${bank.acceptedWastes.length > 3 ? `<span style="color: #6b7280; font-size: 10px;">+${bank.acceptedWastes.length - 3} lainnya</span>` : ''}
           </div>
           <button 
@@ -179,38 +179,39 @@ const WasteBankMap: React.FC<WasteBankMapProps> = ({
           <div className="flex justify-between items-start mb-3">
             <h3 className="font-semibold text-gray-900 text-lg">{selectedBank.name}</h3>
             <button
+              title='Select Bank'
               onClick={() => setSelectedBank(null)}
               className="text-gray-400 hover:text-gray-600 p-1 rounded-full hover:bg-gray-100 transition-colors"
             >
               <X className="h-4 w-4" />
             </button>
           </div>
-          
+
           <div className="space-y-3 text-sm">
             <div className="flex items-start space-x-2">
               <MapPin className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
               <span className="text-gray-600">{selectedBank.address}</span>
             </div>
-            
+
             {selectedBank.phone && (
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-gray-500" />
-                <a 
-                  href={`tel:${selectedBank.phone}`} 
+                <a
+                  href={`tel:${selectedBank.phone}`}
                   className="text-blue-600 hover:underline"
                 >
                   {selectedBank.phone}
                 </a>
               </div>
             )}
-            
+
             {selectedBank.operatingHours && (
               <div className="flex items-center space-x-2">
                 <Clock className="h-4 w-4 text-gray-500" />
                 <span className="text-gray-600">{selectedBank.operatingHours}</span>
               </div>
             )}
-            
+
             {selectedBank.distance && (
               <div className="text-primary-600 font-medium">
                 📍 {selectedBank.distance.toFixed(1)} km dari lokasi Anda
@@ -223,7 +224,7 @@ const WasteBankMap: React.FC<WasteBankMapProps> = ({
               </div>
             )}
           </div>
-          
+
           {/* Accepted Wastes */}
           <div className="mt-4">
             <div className="text-sm font-medium text-gray-900 mb-2">Jenis Sampah yang Diterima:</div>
@@ -238,19 +239,18 @@ const WasteBankMap: React.FC<WasteBankMapProps> = ({
               ))}
             </div>
           </div>
-          
+
           {/* Status and Actions */}
           <div className="mt-4 space-y-3">
             <div className="flex justify-between items-center">
-              <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                selectedBank.isActive 
-                  ? 'bg-green-100 text-green-800' 
+              <span className={`px-3 py-1 rounded-full text-xs font-medium ${selectedBank.isActive
+                  ? 'bg-green-100 text-green-800'
                   : 'bg-red-100 text-red-800'
-              }`}>
+                }`}>
                 {selectedBank.isActive ? '🟢 Sedang Buka' : '🔴 Tutup'}
               </span>
             </div>
-            
+
             <button
               onClick={() => openInMaps(selectedBank)}
               className="w-full bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center space-x-2"
