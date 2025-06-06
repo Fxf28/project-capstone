@@ -29,40 +29,56 @@ export const ClassificationCard: React.FC<ClassificationCardProps> = ({ result }
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+    <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
       {result.imageUrl && (
-        <img 
-          src={result.imageUrl} 
+        <img
+          src={result.imageUrl}
           alt="Classified item"
           className="w-full h-48 object-cover"
         />
       )}
-      
-      <div className="p-4">
-        <div className="flex items-center justify-between mb-2">
-          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getWasteTypeColor(result.classificationResult)}`}>
+
+      <div className="p-4 space-y-2">
+        <div className="flex items-center justify-between">
+          <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${getWasteTypeColor(result.classificationResult)}`}>
             {result.classificationResult}
           </span>
-          <div className="flex items-center space-x-1">
+          <div className="text-gray-500">
             {result.method === 'camera' ? (
-              <Camera className="h-4 w-4 text-gray-500" />
+              <Camera className="h-4 w-4" />
             ) : (
-              <Upload className="h-4 w-4 text-gray-500" />
+              <Upload className="h-4 w-4" />
             )}
           </div>
         </div>
-        
+
         <div className="flex items-center justify-between text-sm text-gray-600">
           <span className={`font-semibold ${getConfidenceColor(result.confidence)}`}>
             {result.confidence.toFixed(1)}% yakin
           </span>
           {result.createdAt && (
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center gap-1">
               <Clock className="h-4 w-4" />
               <span>{new Date(result.createdAt).toLocaleDateString('id-ID')}</span>
             </div>
           )}
         </div>
+
+        {result.top5 && result.top5.length > 1 && (
+          <div className="mt-2 border-t pt-3">
+            <h4 className="text-xs font-medium text-gray-700 mb-2">Top 5 Klasifikasi:</h4>
+            <ul className="text-sm space-y-1">
+              {result.top5.map((item, index) => (
+                <li key={index} className="flex justify-between">
+                  <span>{item.label}</span>
+                  <span className={`${getConfidenceColor(item.confidence)} font-medium`}>
+                    {item.confidence.toFixed(1)}%
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

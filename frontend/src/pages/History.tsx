@@ -320,9 +320,9 @@ export const History: React.FC = () => {
           </motion.div>
 
           <motion.div className="bg-white rounded-lg shadow-md p-6" whileHover={{
-              y: -10,
-              scale: 1.03,
-            }}>
+            y: -10,
+            scale: 1.03,
+          }}>
             <div className="flex items-center">
               <div className="bg-purple-100 p-3 rounded-full">
                 <Upload className="h-6 w-6 text-purple-600" />
@@ -337,9 +337,9 @@ export const History: React.FC = () => {
           </motion.div>
 
           <motion.div className="bg-white rounded-lg shadow-md p-6" whileHover={{
-              y: -10,
-              scale: 1.03,
-            }}>
+            y: -10,
+            scale: 1.03,
+          }}>
             <div className="flex items-center">
               <div className="bg-orange-100 p-3 rounded-full">
                 <Eye className="h-6 w-6 text-orange-600" />
@@ -410,6 +410,7 @@ export const History: React.FC = () => {
                     Metode
                   </label>
                   <select
+                    title="Metode"
                     value={filter.method}
                     onChange={(e) =>
                       handleFilterChange(
@@ -430,6 +431,7 @@ export const History: React.FC = () => {
                     Jenis Sampah
                   </label>
                   <select
+                    title="Jenis Sampah"
                     value={filter.result}
                     onChange={(e) =>
                       handleFilterChange("result", e.target.value)
@@ -514,11 +516,10 @@ export const History: React.FC = () => {
                         <button
                           key={page}
                           onClick={() => handleFilterChange("page", page)}
-                          className={`px-3 py-2 border rounded-lg ${
-                            filter.page === page
-                              ? "bg-primary-600 text-white border-primary-600"
-                              : "border-gray-300 hover:bg-gray-50"
-                          }`}
+                          className={`px-3 py-2 border rounded-lg ${filter.page === page
+                            ? "bg-primary-600 text-white border-primary-600"
+                            : "border-gray-300 hover:bg-gray-50"
+                            }`}
                         >
                           {page}
                         </button>
@@ -660,13 +661,13 @@ const HistoryCard: React.FC<HistoryCardProps> = ({
   return (
     <>
       <div
-        className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow ${
-          isSelected ? "ring-2 ring-primary-500" : ""
-        }`}
+        className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow ${isSelected ? "ring-2 ring-primary-500" : ""
+          }`}
       >
         {/* Selection Checkbox */}
         <div className="absolute top-2 left-2 z-10">
           <input
+            title="Selection Checkbox"
             type="checkbox"
             checked={isSelected}
             onChange={onToggleSelect}
@@ -776,6 +777,7 @@ const HistoryCard: React.FC<HistoryCardProps> = ({
               className="max-w-full max-h-full object-contain rounded-lg"
             />
             <button
+              title="setShowFullImage"
               onClick={() => setShowFullImage(false)}
               className="absolute top-4 right-4 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70"
             >

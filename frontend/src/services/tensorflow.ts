@@ -1,38 +1,32 @@
-import * as tf from '@tensorflow/tfjs';
+import * as tf from "@tensorflow/tfjs";
 
 interface PredictionResult {
   className: string;
   confidence: number;
+  top5: {
+    label: string;
+    confidence: number;
+  }[];
 }
 
 class TensorFlowService {
   private model: tf.GraphModel | null = null;
-  private classNames: string[] = [
-    'Cardboard',
-    'Food Organics', 
-    'Glass',
-    'Metal',
-    'Miscellaneous Trash',
-    'Paper',
-    'Plastic',
-    'Textile Trash',
-    'Vegetation'
-  ];
+  private classNames: string[] = ["Cardboard", "Food Organics", "Glass", "Metal", "Miscellaneous Trash", "Paper", "Plastic", "Textile Trash", "Vegetation"];
   private isLoading = false;
   private isLoaded = false;
 
   async loadModel(): Promise<void> {
     if (this.isLoaded || this.isLoading) return;
-    
+
     this.isLoading = true;
     try {
-      console.log('Loading TensorFlow.js model...');
-      this.model = await tf.loadGraphModel('/models/model.json');
+      console.log("Loading TensorFlow.js model...");
+      this.model = await tf.loadGraphModel("/models/model.json");
       this.isLoaded = true;
-      console.log('Model loaded successfully');
+      console.log("Model loaded successfully");
     } catch (error) {
-      console.error('Error loading model:', error);
-      throw new Error('Failed to load classification model');
+      console.error("Error loading model:", error);
+      throw new Error("Failed to load classification model");
     } finally {
       this.isLoading = false;
     }
@@ -44,37 +38,42 @@ class TensorFlowService {
     }
 
     if (!this.model) {
-      throw new Error('Model not loaded');
+      throw new Error("Model not loaded");
     }
 
     try {
-      // Preprocess image
-      const tensor = tf.browser.fromPixels(imageElement)
-        .resizeNearestNeighbor([224, 224]) // Resize to model input size
-        .toFloat()
-        .div(255.0) // Normalize to [0, 1]
-        .expandDims(0); // Add batch dimension
+      const tensor = tf.browser.fromPixels(imageElement).resizeNearestNeighbor([640, 640]).toFloat().div(255.0).expandDims(0);
 
-      // Make prediction
-      const predictions = await this.model.predict(tensor) as tf.Tensor;
+      const predictions = (await this.model.predict(tensor)) as tf.Tensor;
       const probabilities = await predictions.data();
-      
-      // Get the class with highest probability
-      const maxProbIndex = probabilities.indexOf(Math.max(...probabilities));
-      const confidence = probabilities[maxProbIndex];
-      const className = this.classNames[maxProbIndex];
 
-      // Clean up tensors
+      const probArray = Array.from(probabilities).map((prob, index) => ({
+        index,
+        confidence: prob,
+      }));
+
+      const sorted = probArray.sort((a, b) => b.confidence - a.confidence);
+
+      const top1 = sorted[0];
+      const className = this.classNames[top1.index];
+      const confidence = top1.confidence * 100;
+
+      const top5 = sorted.slice(0, 5).map(({ index, confidence }) => ({
+        label: this.classNames[index],
+        confidence: confidence * 100,
+      }));
+
       tensor.dispose();
       predictions.dispose();
 
       return {
         className,
-        confidence: confidence * 100 // Convert to percentage
+        confidence,
+        top5,
       };
     } catch (error) {
-      console.error('Error during prediction:', error);
-      throw new Error('Failed to classify image');
+      console.error("Error during prediction:", error);
+      throw new Error("Failed to classify image");
     }
   }
 
@@ -89,7 +88,7 @@ class TensorFlowService {
           reject(error);
         }
       };
-      img.onerror = () => reject(new Error('Failed to load image'));
+      img.onerror = () => reject(new Error("Failed to load image"));
       img.src = URL.createObjectURL(file);
     });
   }
@@ -108,7 +107,7 @@ class TensorFlowService {
       };
       img.onerror = () => {
         URL.revokeObjectURL(img.src);
-        reject(new Error('Failed to load image'));
+        reject(new Error("Failed to load image"));
       };
       img.src = URL.createObjectURL(blob);
     });

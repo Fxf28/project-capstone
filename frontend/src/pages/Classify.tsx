@@ -115,11 +115,10 @@ export const Classify: React.FC = () => {
           <div className="p-6">
             {/* Upload Area */}
             <div
-              className={`relative border-2 border-dashed rounded-lg p-12 text-center transition-colors ${
-                dragActive
-                  ? "border-primary-500 bg-primary-50"
-                  : "border-gray-300 hover:border-gray-400"
-              }`}
+              className={`relative border-2 border-dashed rounded-lg p-12 text-center transition-colors ${dragActive
+                ? "border-primary-500 bg-primary-50"
+                : "border-gray-300 hover:border-gray-400"
+                }`}
               onDrop={handleDrop}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
@@ -150,6 +149,7 @@ export const Classify: React.FC = () => {
                       whileTap={{ scale: 0.8 }}
                     >
                       <input
+                        title="input image"
                         type="file"
                         accept="image/*"
                         onChange={handleFileInput}

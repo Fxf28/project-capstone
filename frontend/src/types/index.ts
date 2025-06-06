@@ -13,8 +13,12 @@ export interface ClassificationResult {
   userId?: string;
   imageUrl: string;
   classificationResult: string;
+  top5: {
+    label: string;
+    confidence: number;
+  }[];
   confidence: number;
-  method: 'upload' | 'camera';
+  method: "upload" | "camera";
   createdAt?: string;
 }
 
@@ -22,13 +26,15 @@ export interface EducationContent {
   _id?: string;
   title: string;
   content: string;
-  category: 'recycling' | 'composting' | 'reduction';
+  category: "recycling" | "composting" | "reduction";
   imageUrl?: string;
-  author?: string | {
-    _id: string;
-    displayName: string;
-    email: string;
-  };
+  author?:
+    | string
+    | {
+        _id: string;
+        displayName: string;
+        email: string;
+      };
   createdAt?: string;
   updatedAt?: string;
 }
@@ -36,7 +42,7 @@ export interface EducationContent {
 export interface ChatMessage {
   id: string;
   text: string;
-  sender: 'user' | 'bot';
+  sender: "user" | "bot";
   timestamp: Date;
 }
 
