@@ -15,7 +15,7 @@ export const About: React.FC = () => {
     {
       name: 'Muh Gayuh L',
       role: 'Frontend Developer & UI/UX Designer',
-      photo: 'https://scontent.fcxp2-1.fna.fbcdn.net/v/t39.30808-6/503616214_24661467956788983_2412984694976523485_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGorPjy-wr0Mj5M1jkabb1ZYeg_5JfaMa1h6D_kl9oxrbOX9RMC4wb3uMpGaUWgrTti6cHc31SuH-lshzsEcENk&_nc_ohc=LgrAGl_oo8kQ7kNvwFjbMAq&_nc_oc=AdkN5cqqFphy4CEqNpUSsjGN6w3-bc0agbJQLSfqGNbD6p3u91VyVo8i6pSXNYB_jss&_nc_zt=23&_nc_ht=scontent.fcxp2-1.fna&_nc_gid=8w4D3LH1Fg5prpU3jX7frw&oh=00_AfLxR8b7i08XZKp3zZMbTDH6y4XUHPNG9tuZR_ZE2daaQA&oe=6843A1C8',
+      photo: 'https://avatars.githubusercontent.com/u/123925996?v=4',
       linkedin: 'https://www.linkedin.com/in/mgayuhlksn/ ',
       github: 'https://github.com/gyhlksn'
     },
