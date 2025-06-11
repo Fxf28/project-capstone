@@ -273,7 +273,7 @@ export const Home: React.FC = () => {
               9 Jenis Sampah yang Dapat Diklasifikasi
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              EcoSort AI dapat mengidentifikasi berbagai jenis sampah dengan akurasi 99% untuk membantu proses daur ulang yang tepat
+              EcoSort AI dapat mengidentifikasi berbagai jenis sampah dengan akurasi 98% untuk membantu proses daur ulang yang tepat
             </p>
           </motion.div>
 
