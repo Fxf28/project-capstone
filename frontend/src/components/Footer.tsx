@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
           {/* Brand Section */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <Leaf className="h-8 w-8 text-primary-400" />
+              <img src="/logo.svg" alt="EcoSort Logo" className="h-8 w-8" />
               <span className="text-xl font-bold">EcoSort</span>
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">

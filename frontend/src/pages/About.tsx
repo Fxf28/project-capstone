@@ -76,7 +76,7 @@ export const About: React.FC = () => {
       <section className="bg-gradient-to-r from-green-500 to-blue-600 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="flex items-center justify-center mb-6">
-            <Leaf className="h-16 w-16 mr-4" />
+            <img src="/logo.svg" alt="EcoSort Logo" className="h-16 w-16 mr-4" />
             <h1 className="text-5xl font-bold">EcoSort</h1>
           </div>
           <p className="text-xl mb-8 max-w-3xl mx-auto">

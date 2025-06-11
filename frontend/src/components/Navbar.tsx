@@ -81,9 +81,10 @@ export const Navbar: React.FC = () => {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
-              <Leaf className="h-8 w-8 text-primary-600" />
+              <img src="/logo.svg" alt="EcoSort Logo" className="h-8 w-8" />
               <span className="text-xl font-bold text-gray-900">EcoSort</span>
             </Link>
+
           </div>
 
           {/* Desktop Menu */}
@@ -167,7 +168,7 @@ export const Navbar: React.FC = () => {
                   ) : (
                     <User className="h-8 w-8 text-gray-400" />
                   )}
-                  
+
                 </div>
                 <button
                   onClick={() => {
