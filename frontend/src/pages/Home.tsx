@@ -390,7 +390,7 @@ export const Home: React.FC = () => {
           >
             {[
               { value: 9, label: "Jenis Sampah" },
-              { value: 99, label: "Akurasi AI", suffix: "%" },
+              { value: 98, label: "Akurasi AI", suffix: "%" },
               { value: "24/7", label: "Tersedia" },
             ].map((stat, idx) => (
               <motion.div
