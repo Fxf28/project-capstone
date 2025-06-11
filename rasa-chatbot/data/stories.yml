@@ -2,21 +2,26 @@ version: "3.1"
 
 stories:
 
-- story: greet and ask about waste sorting
+- story: basic greeting and waste sorting
   steps:
   - intent: greet
   - action: utter_greet
   - intent: ask_waste_sorting
   - action: utter_waste_sorting
+  - intent: affirm
+  - intent: goodbye
+  - action: utter_goodbye
 
-- story: ask about recycling and composting
+- story: recycling and composting conversation
   steps:
   - intent: ask_recycling
   - action: utter_recycling_info
   - intent: ask_composting
   - action: utter_composting_guide
+  - intent: ask_organic_waste
+  - action: utter_organic_waste
 
-- story: ask about plastic and waste bank
+- story: plastic recycling and waste bank
   steps:
   - intent: ask_plastic_recycling
   - action: utter_plastic_recycling
@@ -34,15 +39,34 @@ stories:
   - action: utter_organic_waste
   - intent: ask_composting
   - action: utter_composting_guide
+  - intent: ask_3r_principle
+  - action: utter_3r_principle
   - intent: goodbye
   - action: utter_goodbye
 
-- story: app usage help
+- story: app usage and classification help
   steps:
   - intent: ask_classification_help
   - action: utter_classification_help
   - intent: ask_about_app
   - action: utter_about_app
+
+- story: environmental awareness conversation
+  steps:
+  - intent: ask_environmental_impact
+  - action: utter_environmental_impact
+  - intent: ask_waste_statistics
+  - action: utter_waste_statistics
+  - intent: ask_reduce_waste
+  - action: utter_reduce_waste
+
+- story: 3r principle and diy crafts
+  steps:
+  - intent: ask_3r_principle
+  - action: utter_3r_principle
+  - intent: ask_diy_crafts
+  - action: utter_diy_crafts
+  - intent: affirm
 
 - story: waste reduction conversation
   steps:
@@ -61,8 +85,94 @@ stories:
   - intent: ask_composting
   - action: utter_composting_guide
 
-- story: fallback to default
+- story: complete waste education journey
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_about_app
+  - action: utter_about_app
+  - intent: ask_classification_help
+  - action: utter_classification_help
+  - intent: ask_waste_sorting
+  - action: utter_waste_sorting
+  - intent: ask_organic_waste
+  - action: utter_organic_waste
+  - intent: ask_inorganic_waste
+  - action: utter_inorganic_waste
+  - intent: ask_3r_principle
+  - action: utter_3r_principle
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: advanced recycling conversation
+  steps:
+  - intent: ask_plastic_recycling
+  - action: utter_plastic_recycling
+  - intent: ask_recycling
+  - action: utter_recycling_info
+  - intent: ask_waste_bank
+  - action: utter_waste_bank_info
+  - intent: ask_diy_crafts
+  - action: utter_diy_crafts
+
+- story: environmental impact awareness
+  steps:
+  - intent: ask_environmental_impact
+  - action: utter_environmental_impact
+  - intent: affirm
+  - intent: ask_waste_statistics
+  - action: utter_waste_statistics
+  - intent: ask_reduce_waste
+  - action: utter_reduce_waste
+
+- story: bot challenge and help
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+  - intent: ask_about_app
+  - action: utter_about_app
+
+- story: fallback to default and recovery
   steps:
   - action: utter_default
   - intent: ask_waste_sorting
   - action: utter_waste_sorting
+
+- story: organic waste management flow
+  steps:
+  - intent: ask_organic_waste
+  - action: utter_organic_waste
+  - intent: ask_composting
+  - action: utter_composting_guide
+  - intent: affirm
+  - intent: ask_3r_principle
+  - action: utter_3r_principle
+
+- story: creative upcycling conversation
+  steps:
+  - intent: ask_diy_crafts
+  - action: utter_diy_crafts
+  - intent: ask_3r_principle
+  - action: utter_3r_principle
+  - intent: ask_reduce_waste
+  - action: utter_reduce_waste
+
+- story: classification and technology focus
+  steps:
+  - intent: ask_classification_help
+  - action: utter_classification_help
+  - intent: ask_about_app
+  - action: utter_about_app
+  - intent: ask_waste_sorting
+  - action: utter_waste_sorting
+
+- story: comprehensive statistics and impact
+  steps:
+  - intent: ask_waste_statistics
+  - action: utter_waste_statistics
+  - intent: ask_environmental_impact
+  - action: utter_environmental_impact
+  - intent: ask_reduce_waste
+  - action: utter_reduce_waste
+  - intent: ask_3r_principle
+  - action: utter_3r_principle

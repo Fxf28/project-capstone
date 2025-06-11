@@ -1,9 +1,14 @@
+recipe: default.v1
 language: id
+
 pipeline:
   - name: WhitespaceTokenizer
   - name: RegexFeaturizer
   - name: LexicalSyntacticFeaturizer
   - name: CountVectorsFeaturizer
+    analyzer: word
+    min_ngram: 1
+    max_ngram: 2
   - name: CountVectorsFeaturizer
     analyzer: char_wb
     min_ngram: 1
@@ -30,4 +35,4 @@ policies:
     epochs: 100
     constrain_similarities: true
 
-assistant_id: 20250522-134422-adventurous-siege
+assistant_id: 20250611-enhanced-ecosort-bot
