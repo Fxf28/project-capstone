@@ -8,6 +8,7 @@ nlu:
     - selamat pagi
     - selamat siang
     - selamat sore
+    - selamat malam
     - hi
     - hello
     - apa kabar
@@ -15,6 +16,13 @@ nlu:
     - hai ecobot
     - mulai
     - start
+    - assalamualaikum
+    - good morning
+    - good afternoon
+    - hei
+    - hey
+    - halo ecosort
+    - permisi
 
 - intent: goodbye
   examples: |
@@ -28,6 +36,14 @@ nlu:
     - selesai
     - exit
     - quit
+    - wassalamualaikum
+    - goodbye
+    - see you
+    - dah
+    - dadah
+    - sampai nanti
+    - oke terima kasih
+    - sudah selesai
 
 - intent: affirm
   examples: |
@@ -40,6 +56,14 @@ nlu:
     - oke
     - baik
     - yes
+    - yup
+    - siap
+    - mantap
+    - bagus
+    - cocok
+    - tepat
+    - pas
+    - sip
 
 - intent: deny
   examples: |
@@ -50,6 +74,13 @@ nlu:
     - enggak
     - gak
     - nggak
+    - nope
+    - kurang tepat
+    - belum
+    - jangan
+    - tidak juga
+    - bukan itu
+    - nanti saja
 
 - intent: ask_waste_sorting
   examples: |
@@ -64,6 +95,14 @@ nlu:
     - memilah sampah di rumah
     - sistem pemilahan sampah
     - klasifikasi sampah rumah tangga
+    - aturan memilah sampah
+    - panduan pilah sampah
+    - teknik pemilahan sampah
+    - cara bagi sampah
+    - pemisahan sampah domestik
+    - metode pilah sampah
+    - langkah memilah sampah
+    - tips pilah sampah
 
 - intent: ask_recycling
   examples: |
@@ -77,6 +116,14 @@ nlu:
     - recycle sampah
     - pengolahan sampah daur ulang
     - mendaur ulang sampah rumah tangga
+    - teknik daur ulang
+    - sistem recycling
+    - kegunaan daur ulang
+    - pentingnya recycle
+    - cara recycle yang benar
+    - jenis barang yang bisa didaur ulang
+    - langkah daur ulang
+    - metode recycling
 
 - intent: ask_composting
   examples: |
@@ -90,6 +137,14 @@ nlu:
     - cara kompos di rumah
     - teknik pembuatan kompos
     - kompos dari sisa makanan
+    - tutorial kompos
+    - panduan komposting
+    - langkah bikin kompos
+    - metode kompos rumah tangga
+    - kompos organik
+    - pupuk dari sampah dapur
+    - cara fermentasi sampah organik
+    - sistem komposting sederhana
 
 - intent: ask_plastic_recycling
   examples: |
@@ -102,19 +157,31 @@ nlu:
     - pengolahan sampah plastik
     - mendaur ulang botol plastik
     - recycle plastik rumah tangga
+    - tipe plastik untuk daur ulang
+    - kode angka di plastik
+    - simbol daur ulang plastik
+    - kategori plastik recyclable
+    - plastik food grade
+    - cara pilah plastik
+    - identifikasi jenis plastik
 
 - intent: ask_waste_bank
   examples: |
     - apa itu bank sampah?
-    - bank sampah terdekat
-    - cara gabung bank sampah
-    - dimana bank sampah
     - sistem bank sampah
     - cara kerja bank sampah
     - keuntungan bank sampah
-    - daftar bank sampah
-    - lokasi bank sampah
-    - bank sampah di sekitar sini
+    - manfaat bank sampah
+    - prinsip bank sampah
+    - konsep bank sampah
+    - fungsi bank sampah
+    - tujuan bank sampah
+    - cara bergabung bank sampah
+    - syarat masuk bank sampah
+    - prosedur bank sampah
+    - mekanisme bank sampah
+    - program bank sampah
+    - dampak positif bank sampah
 
 - intent: ask_organic_waste
   examples: |
@@ -126,6 +193,14 @@ nlu:
     - sampah dapur
     - limbah organik
     - sampah basah
+    - contoh sampah organik
+    - karakteristik sampah organik
+    - ciri sampah organik
+    - macam sampah organik
+    - kategori limbah organik
+    - pengelolaan sampah basah
+    - treatment sampah organik
+    - cara buang sampah organik
 
 - intent: ask_inorganic_waste
   examples: |
@@ -135,6 +210,15 @@ nlu:
     - pengolahan sampah anorganik
     - sampah non organik
     - limbah anorganik
+    - contoh sampah anorganik
+    - karakteristik sampah anorganik
+    - ciri sampah anorganik
+    - macam sampah anorganik
+    - kategori limbah anorganik
+    - pengelolaan sampah kering
+    - treatment sampah anorganik
+    - cara buang sampah anorganik
+    - sampah tidak mudah terurai
 
 - intent: ask_reduce_waste
   examples: |
@@ -147,6 +231,14 @@ nlu:
     - hidup minim sampah
     - mengurangi sampah plastik
     - tips ramah lingkungan
+    - lifestyle zero waste
+    - cara hidup sustainable
+    - mengurangi jejak karbon
+    - eco friendly living
+    - gaya hidup berkelanjutan
+    - tips hemat sampah
+    - cara kurangi limbah rumah tangga
+    - strategi minimalisir sampah
 
 - intent: ask_classification_help
   examples: |
@@ -158,6 +250,14 @@ nlu:
     - menggunakan ecosort
     - klasifikasi otomatis
     - deteksi jenis sampah
+    - panduan fitur AI
+    - tutorial klasifikasi gambar
+    - cara scan sampah
+    - fitur pengenalan sampah
+    - sistem identifikasi sampah
+    - teknologi AI ecosort
+    - cara kerja machine learning
+    - akurasi sistem klasifikasi
 
 - intent: ask_about_app
   examples: |
@@ -168,6 +268,72 @@ nlu:
     - fungsi ecosort
     - aplikasi untuk apa
     - about this app
+    - manfaat ecosort
+    - tujuan aplikasi
+    - visi misi ecosort
+    - keunggulan aplikasi
+    - teknologi ecosort
+    - cara kerja ecosort
+    - developer ecosort
+    - tim pembuat aplikasi
+
+- intent: ask_environmental_impact
+  examples: |
+    - dampak sampah terhadap lingkungan
+    - akibat buang sampah sembarangan
+    - pencemaran karena sampah
+    - efek sampah ke alam
+    - dampak negatif sampah
+    - bahaya sampah plastik
+    - pengaruh sampah ke ekosistem
+    - konsekuensi pencemaran sampah
+    - masalah lingkungan karena sampah
+    - kerusakan alam akibat sampah
+    - polusi dari sampah
+    - degradasi lingkungan
+
+- intent: ask_waste_statistics
+  examples: |
+    - data sampah indonesia
+    - statistik sampah nasional
+    - jumlah sampah harian
+    - volume sampah rumah tangga
+    - fakta sampah di indonesia
+    - angka produksi sampah
+    - tingkat pengelolaan sampah
+    - persentase daur ulang
+    - rata-rata sampah per orang
+    - tren peningkatan sampah
+    - komposisi sampah indonesia
+
+- intent: ask_3r_principle
+  examples: |
+    - apa itu 3r
+    - prinsip 3r
+    - reduce reuse recycle
+    - konsep 3r
+    - penerapan 3r
+    - contoh 3r
+    - manfaat 3r
+    - cara menerapkan 3r
+    - implementasi 3r di rumah
+    - strategi 3r
+    - program 3r
+    - metode 3r
+
+- intent: ask_diy_crafts
+  examples: |
+    - kerajinan dari sampah
+    - diy dari botol plastik
+    - kreasi sampah anorganik
+    - craft dari kardus
+    - upcycling sampah
+    - membuat kerajinan dari limbah
+    - ide kreatif sampah
+    - tutorial kerajinan daur ulang
+    - project diy ramah lingkungan
+    - seni dari sampah
+    - karya seni daur ulang
 
 - intent: bot_challenge
   examples: |
@@ -177,6 +343,10 @@ nlu:
     - apa kamu manusia?
     - kamu chatbot?
     - who are you?
+    - kamu ai?
+    - artificial intelligence?
+    - kamu ecobot?
+    - identitas kamu
 
 - intent: out_of_scope
   examples: |
@@ -190,3 +360,11 @@ nlu:
     - cara main game
     - tutorial makeup
     - tips diet
+    - sepak bola
+    - teknologi terbaru
+    - wisata
+    - kuliner
+    - fashion
+    - kesehatan umum
+    - pendidikan
+    - pekerjaan

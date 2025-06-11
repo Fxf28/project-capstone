@@ -1,91 +1,116 @@
-#### This file contains tests to evaluate that your bot behaves as expected.
-#### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
+version: "3.1"
 
 stories:
-- story: happy path 1
-  steps:
-  - user: |
-      hello there!
-    intent: greet
-  - action: utter_greet
-  - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
 
-- story: happy path 2
+- story: test basic greeting flow
   steps:
   - user: |
-      hello there!
+      halo
     intent: greet
   - action: utter_greet
   - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
+      bagaimana cara memilah sampah?
+    intent: ask_waste_sorting
+  - action: utter_waste_sorting
   - user: |
-      bye-bye!
+      terima kasih
     intent: goodbye
   - action: utter_goodbye
 
-- story: sad path 1
+- story: test recycling knowledge flow
   steps:
   - user: |
-      hello
-    intent: greet
-  - action: utter_greet
+      apa itu daur ulang?
+    intent: ask_recycling
+  - action: utter_recycling_info
   - user: |
-      not good
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      yes
-    intent: affirm
-  - action: utter_happy
+      bagaimana membuat kompos?
+    intent: ask_composting
+  - action: utter_composting_guide
 
-- story: sad path 2
+- story: test plastic recycling expertise
   steps:
   - user: |
-      hello
-    intent: greet
-  - action: utter_greet
+      jenis plastik apa yang bisa didaur ulang?
+    intent: ask_plastic_recycling
+  - action: utter_plastic_recycling
   - user: |
-      not good
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      not really
-    intent: deny
-  - action: utter_goodbye
+      apa itu bank sampah?
+    intent: ask_waste_bank
+  - action: utter_waste_bank_info
 
-- story: sad path 3
+- story: test environmental awareness
   steps:
   - user: |
-      hi
-    intent: greet
-  - action: utter_greet
+      dampak sampah terhadap lingkungan
+    intent: ask_environmental_impact
+  - action: utter_environmental_impact
   - user: |
-      very terrible
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      no
-    intent: deny
-  - action: utter_goodbye
+      data sampah indonesia
+    intent: ask_waste_statistics
+  - action: utter_waste_statistics
 
-- story: say goodbye
+- story: test 3r principle understanding
   steps:
   - user: |
-      bye-bye!
-    intent: goodbye
-  - action: utter_goodbye
+      apa itu prinsip 3r?
+    intent: ask_3r_principle
+  - action: utter_3r_principle
+  - user: |
+      kerajinan dari sampah
+    intent: ask_diy_crafts
+  - action: utter_diy_crafts
 
-- story: bot challenge
+- story: test app functionality
   steps:
   - user: |
-      are you a bot?
+      cara pakai fitur klasifikasi
+    intent: ask_classification_help
+  - action: utter_classification_help
+  - user: |
+      tentang ecosort
+    intent: ask_about_app
+  - action: utter_about_app
+
+- story: test organic waste management
+  steps:
+  - user: |
+      sampah organik
+    intent: ask_organic_waste
+  - action: utter_organic_waste
+  - user: |
+      cara membuat kompos di rumah
+    intent: ask_composting
+  - action: utter_composting_guide
+
+- story: test inorganic waste handling
+  steps:
+  - user: |
+      sampah anorganik
+    intent: ask_inorganic_waste
+  - action: utter_inorganic_waste
+  - user: |
+      tips daur ulang
+    intent: ask_recycling
+  - action: utter_recycling_info
+
+- story: test waste reduction strategies
+  steps:
+  - user: |
+      cara mengurangi sampah
+    intent: ask_reduce_waste
+  - action: utter_reduce_waste
+
+- story: test bot identity
+  steps:
+  - user: |
+      kamu siapa?
     intent: bot_challenge
   - action: utter_iamabot
+
+- story: test out of scope handling
+  steps:
+  - user: |
+      resep masakan
+    intent: out_of_scope
+  - action: utter_out_of_scope

@@ -1,0 +1,162 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hello
+    - halo bot
+    - selamat pagi
+    - hi there
+    - good morning
+
+- intent: goodbye
+  examples: |
+    - bye
+    - sampai jumpa
+    - see you later
+    - goodbye
+    - terima kasih sudah membantu
+
+- intent: affirm
+  examples: |
+    - yes
+    - ya benar
+    - iya
+    - betul sekali
+    - oke
+
+- intent: deny
+  examples: |
+    - no
+    - tidak
+    - bukan
+    - salah
+    - nggak
+
+- intent: ask_waste_sorting
+  examples: |
+    - cara memilah sampah
+    - gimana pilah sampah
+    - jenis sampah apa saja
+    - bagaimana cara memisahkan sampah
+    - panduan pemilahan sampah
+
+- intent: ask_recycling
+  examples: |
+    - bagaimana cara daur ulang
+    - apa itu recycle
+    - tips mendaur ulang sampah
+    - proses recycling
+    - manfaat daur ulang
+
+- intent: ask_composting
+  examples: |
+    - cara bikin kompos
+    - bagaimana membuat pupuk kompos
+    - tutorial komposting
+    - kompos dari sampah organik
+    - proses pembuatan kompos
+
+- intent: ask_plastic_recycling
+  examples: |
+    - plastik mana yang bisa didaur ulang
+    - kode plastik recyclable
+    - cara recycle botol plastik
+    - jenis plastik untuk daur ulang
+    - nomor kode pada plastik
+
+- intent: ask_waste_bank
+  examples: |
+    - apa itu bank sampah
+    - sistem kerja bank sampah
+    - keuntungan bank sampah
+    - cara bergabung bank sampah
+    - fungsi bank sampah
+
+- intent: ask_organic_waste
+  examples: |
+    - sampah organik itu apa
+    - jenis sampah organik
+    - pengolahan limbah organik
+    - sampah basah
+    - sisa makanan termasuk apa
+
+- intent: ask_inorganic_waste
+  examples: |
+    - sampah anorganik
+    - jenis sampah kering
+    - sampah non organik
+    - limbah anorganik
+    - sampah yang tidak mudah terurai
+
+- intent: ask_reduce_waste
+  examples: |
+    - cara mengurangi sampah
+    - tips kurangi limbah
+    - strategi minimalisir sampah
+    - hidup zero waste
+    - mengurangi sampah plastik
+
+- intent: ask_classification_help
+  examples: |
+    - cara pakai fitur AI
+    - bagaimana menggunakan klasifikasi
+    - panduan upload gambar
+    - tutorial fitur deteksi
+    - cara kerja AI classification
+
+- intent: ask_about_app
+  examples: |
+    - tentang aplikasi ecosort
+    - fitur apa saja yang ada
+    - kegunaan app ini
+    - fungsi ecosort
+    - aplikasi untuk apa
+
+- intent: ask_environmental_impact
+  examples: |
+    - dampak sampah ke lingkungan
+    - akibat buang sampah sembarangan
+    - pengaruh sampah terhadap alam
+    - efek negatif sampah
+    - bahaya sampah plastik
+
+- intent: ask_waste_statistics
+  examples: |
+    - data sampah indonesia
+    - statistik sampah nasional
+    - angka produksi sampah
+    - fakta sampah di indonesia
+    - jumlah sampah harian
+
+- intent: ask_3r_principle
+  examples: |
+    - apa itu 3r
+    - prinsip reduce reuse recycle
+    - konsep 3r sampah
+    - penerapan 3r
+    - contoh 3r dalam kehidupan
+
+- intent: ask_diy_crafts
+  examples: |
+    - kerajinan dari sampah
+    - kreasi barang bekas
+    - diy dari botol plastik
+    - upcycling sampah
+    - membuat kerajinan daur ulang
+
+- intent: bot_challenge
+  examples: |
+    - kamu siapa
+    - apakah kamu bot
+    - kamu manusia atau robot
+    - who are you
+    - apa kamu AI
+
+- intent: out_of_scope
+  examples: |
+    - cuaca hari ini
+    - resep masakan
+    - tips diet
+    - olahraga terbaik
+    - harga saham

@@ -17,7 +17,7 @@ rules:
   - intent: out_of_scope
   - action: utter_out_of_scope
 
-- rule: Greet and provide waste sorting info
+- rule: Greet user
   steps:
   - intent: greet
   - action: utter_greet
@@ -71,6 +71,26 @@ rules:
   steps:
   - intent: ask_about_app
   - action: utter_about_app
+
+- rule: Answer environmental impact questions
+  steps:
+  - intent: ask_environmental_impact
+  - action: utter_environmental_impact
+
+- rule: Answer waste statistics questions
+  steps:
+  - intent: ask_waste_statistics
+  - action: utter_waste_statistics
+
+- rule: Answer 3R principle questions
+  steps:
+  - intent: ask_3r_principle
+  - action: utter_3r_principle
+
+- rule: Answer DIY crafts questions
+  steps:
+  - intent: ask_diy_crafts
+  - action: utter_diy_crafts
 
 - rule: Activate fallback
   steps:

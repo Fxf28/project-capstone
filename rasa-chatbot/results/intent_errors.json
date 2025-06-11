@@ -1,0 +1,10 @@
+[
+  {
+    "text": "fitur apa saja yang ada",
+    "intent": "ask_about_app",
+    "intent_prediction": {
+      "name": "ask_recycling",
+      "confidence": 0.2877047657966614
+    }
+  }
+]

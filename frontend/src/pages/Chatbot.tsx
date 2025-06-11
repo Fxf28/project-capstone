@@ -33,12 +33,19 @@ export const Chatbot: React.FC = () => {
   };
 
   const quickQuestions = [
-    "Bagaimana cara memilah sampah?",
-    "Apa itu kompos dan bagaimana membuatnya?",
-    "Di mana bank sampah terdekat?",
+    "Bagaimana cara memilah sampah yang benar?",
+    "Tips mengurangi sampah rumah tangga?",
+    "Cara membuat kompos dari sampah organik?",
     "Jenis plastik apa yang bisa didaur ulang?",
-    "Tips mengurangi sampah rumah tangga",
+    "Dampak sampah terhadap lingkungan?",
+    "Kreasi DIY dari barang bekas?",
   ];
+
+  // Format message text to handle bold formatting
+  const formatMessage = (text: string) => {
+    // Remove ** formatting since we can't display bold in plain text
+    return text.replace(/\*\*(.*?)\*\*/g, '$1');
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -53,7 +60,7 @@ export const Chatbot: React.FC = () => {
               <div>
                 <h1 className="text-xl font-semibold text-gray-900">EcoBot</h1>
                 <p className="text-sm text-gray-600">
-                  Asisten AI untuk pengelolaan sampah
+                  Asisten AI untuk pengelolaan sampah berkelanjutan
                 </p>
               </div>
             </div>
@@ -72,8 +79,11 @@ export const Chatbot: React.FC = () => {
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-6 space-y-4">
             {messages.map((message) => (
-              <div
+              <motion.div
                 key={message.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
                 className={`flex ${
                   message.sender === "user" ? "justify-end" : "justify-start"
                 }`}
@@ -90,7 +100,7 @@ export const Chatbot: React.FC = () => {
                     className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
                       message.sender === "user"
                         ? "bg-primary-600"
-                        : "bg-gray-600"
+                        : "bg-green-600"
                     }`}
                   >
                     {message.sender === "user" ? (
@@ -102,17 +112,17 @@ export const Chatbot: React.FC = () => {
 
                   {/* Message Bubble */}
                   <div
-                    className={`rounded-lg px-4 py-2 max-w-xs lg:max-w-md ${
+                    className={`rounded-lg px-4 py-3 max-w-xs lg:max-w-2xl ${
                       message.sender === "user"
                         ? "bg-primary-600 text-white"
                         : "bg-white border shadow-sm text-gray-900"
                     }`}
                   >
-                    <p className="text-sm whitespace-pre-wrap">
-                      {message.text}
-                    </p>
+                    <div className="text-sm whitespace-pre-wrap break-words">
+                      {formatMessage(message.text)}
+                    </div>
                     <p
-                      className={`text-xs mt-1 ${
+                      className={`text-xs mt-2 ${
                         message.sender === "user"
                           ? "text-primary-100"
                           : "text-gray-500"
@@ -125,16 +135,20 @@ export const Chatbot: React.FC = () => {
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
 
             {loading && (
-              <div className="flex justify-start">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex justify-start"
+              >
                 <div className="flex items-start space-x-3">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-green-600 flex items-center justify-center">
                     <Bot className="h-4 w-4 text-white" />
                   </div>
-                  <div className="bg-white border shadow-sm rounded-lg px-4 py-2">
+                  <div className="bg-white border shadow-sm rounded-lg px-4 py-3">
                     <div className="flex items-center space-x-2">
                       <LoadingSpinner size="sm" />
                       <span className="text-sm text-gray-600">
@@ -143,7 +157,7 @@ export const Chatbot: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             )}
 
             <div ref={messagesEndRef} />
@@ -158,13 +172,15 @@ export const Chatbot: React.FC = () => {
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {quickQuestions.map((question, index) => (
-                    <button
+                    <motion.button
                       key={index}
                       onClick={() => setInputMessage(question)}
-                      className="text-left text-sm text-gray-600 hover:text-primary-600 hover:bg-primary-50 p-2 rounded transition-colors"
+                      className="text-left text-sm text-gray-600 hover:text-primary-600 hover:bg-primary-50 p-3 rounded-lg transition-colors"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                     >
                       {question}
-                    </button>
+                    </motion.button>
                   ))}
                 </div>
               </div>
@@ -179,21 +195,24 @@ export const Chatbot: React.FC = () => {
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Tanya tentang pengelolaan sampah..."
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                  rows={1}
+                  placeholder="Tanya tentang pengelolaan sampah, daur ulang, kompos, dan tips ramah lingkungan..."
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                  rows={2}
                   disabled={loading}
                 />
               </div>
               <motion.button
                 onClick={handleSend}
                 disabled={!inputMessage.trim() || loading}
-                className="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.8 }}
+                className="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed self-end"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <Send className="h-5 w-5" />
               </motion.button>
+            </div>
+            <div className="mt-2 text-xs text-gray-500 text-center">
+              EcoBot siap membantu Anda dengan informasi lengkap tentang pengelolaan sampah berkelanjutan
             </div>
           </div>
         </div>
