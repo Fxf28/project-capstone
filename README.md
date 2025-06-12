@@ -55,7 +55,7 @@ EcoSort adalah platform web headless yang memanfaatkan AI untuk mengklasifikasik
 2. Install dependencies:
 
    ```js
-   npm install
+   npm install --legacy-peer-deps
    ```
 
 3. Konfigurasi .env:
@@ -103,7 +103,7 @@ EcoSort adalah platform web headless yang memanfaatkan AI untuk mengklasifikasik
 2. Install dependencies:
 
    ```js
-   npm install
+   npm install --legacy-peer-deps
    ```
 
 3. Konfigurasi .env:
@@ -176,6 +176,30 @@ EcoSort adalah platform web headless yang memanfaatkan AI untuk mengklasifikasik
 3. Commit perubahan: `git commit -m "Add YourFeature"`
 4. Push ke branch: `git push origin feature/YourFeature`
 5. Buat pull request di GitHub
+
+## 👥 Tim Pengembang
+
+Proyek EcoSort dikembangkan oleh tim mahasiswa dari berbagai perguruan tinggi di Indonesia:
+
+- **Faiz Fajar** (MC828D5Y0055)  
+  Mahasiswa D3 Teknologi Informasi, Politeknik Nest Sukoharjo  
+  _Spesialisasi: Machine Learning_
+
+- **Reza Yasa Putra** (MC282D5Y2160)  
+  Mahasiswa S1 Informatika, Universitas Negeri Padang  
+  _Spesialisasi: Machine Learning_
+
+- **Fadli Ahmad Yazid** (MC322D5Y2298)  
+  Mahasiswa S1 Teknik Elektro, Universitas Syiah Kuala  
+  _Spesialisasi: Machine Learning_
+
+- **Dhio Pakusadewa** (FC327D5Y1109)  
+  Mahasiswa S1 Sistem Informasi, Universitas Teknologi Yogyakarta  
+  _Spesialisasi: Front-End & Back-End_
+
+- **Muhammad Gayuh Laksono** (FC513D5Y0903)  
+  Mahasiswa S1 Teknik Komputer, Institut Teknologi & Sains NU Pekalongan  
+  _Spesialisasi: Front-End & Back-End_
 
 ## 📜 Lisensi
 
