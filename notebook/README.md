@@ -146,8 +146,6 @@ Visualisasi di atas menunjukkan distribusi dataset gambar RealWaste:
 
 ---
 
----
-
 ### 5. Augmentasi Data (Offline Augmentation)
 
 Setelah menganalisis distribusi data, kami menemukan bahwa beberapa kategori sampah memiliki jumlah gambar yang lebih sedikit. Untuk mengatasi ketidakseimbangan ini dan meningkatkan kemampuan model untuk belajar, kami melakukan **augmentasi data secara offline**.
@@ -221,8 +219,6 @@ Setelah 50 epoch, model menunjukkan performa yang sangat baik:
 Ini menunjukkan model kami sangat efektif dalam mengklasifikasikan jenis sampah dengan tingkat akurasi yang tinggi.
 
 ---
-
-Here's the concise README entry for the evaluation phase:
 
 ---
 
