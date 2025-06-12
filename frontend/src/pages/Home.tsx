@@ -96,25 +96,18 @@ export const Home: React.FC = () => {
     },
   };
 
-  const floating = {
-    animate: {
-      y: [0, -15, 0],
-      transition: {
-        duration: 3,
-        repeat: Infinity,
-        ease: "easeInOut",
-      },
-    },
-  };
-
-  const bounce = {
-    initial: { opacity: 0, scale: 0 },
-    animate: { opacity: 1, scale: 1 },
-    transition: {
-      duration: 0.4,
-      scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
-    },
-  };
+  // Waste types data
+  const wasteTypes = [
+    { name: "Cardboard", emoji: "📦", color: "bg-amber-100 border-amber-300", description: "Kardus bekas kemasan" },
+    { name: "Food Organics", emoji: "🍎", color: "bg-green-100 border-green-300", description: "Sisa makanan organik" },
+    { name: "Glass", emoji: "🥃", color: "bg-cyan-100 border-cyan-300", description: "Botol dan pecahan kaca" },
+    { name: "Metal", emoji: "🥫", color: "bg-gray-100 border-gray-300", description: "Kaleng dan logam lainnya" },
+    { name: "Miscellaneous Trash", emoji: "🗑️", color: "bg-orange-100 border-orange-300", description: "Sampah campuran lainnya" },
+    { name: "Paper", emoji: "📄", color: "bg-blue-100 border-blue-300", description: "Kertas bekas dan dokumen" },
+    { name: "Plastic", emoji: "🍼", color: "bg-red-100 border-red-300", description: "Botol plastik dan kemasan" },
+    { name: "Textile Trash", emoji: "👕", color: "bg-purple-100 border-purple-300", description: "Tekstil dan pakaian bekas" },
+    { name: "Vegetation", emoji: "🌿", color: "bg-emerald-100 border-emerald-300", description: "Dedaunan dan tumbuhan" },
+  ];
 
   return (
     <div
@@ -179,76 +172,191 @@ export const Home: React.FC = () => {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Upload Gambar */}
             <motion.div
               className="text-center p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow"
               whileHover={{ scale: 1.03 }}
             >
-              <Upload className="h-12 w-12 text-primary-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Upload Gambar</h3>
-              <p className="text-gray-600">
-                Upload foto sampah dan dapatkan klasifikasi instan dengan AI
-              </p>
+              <Link to="/classify" className="block">
+                <Upload className="h-12 w-12 text-primary-600 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Upload Gambar</h3>
+                <p className="text-gray-600">
+                  Upload foto sampah dan dapatkan klasifikasi instan dengan AI
+                </p>
+              </Link>
             </motion.div>
 
-            {user && (
-              <>
-                <motion.div
-                  className="text-center p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow"
-                  whileHover={{ scale: 1.03 }}
-                >
-                  <Camera className="h-12 w-12 text-primary-600 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Kamera Live</h3>
-                  <p className="text-gray-600">
-                    Gunakan kamera untuk klasifikasi real-time
-                  </p>
-                </motion.div>
-
-                <motion.div
-                  className="text-center p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow"
-                  whileHover={{ scale: 1.03 }}
-                >
-                  <BookOpen className="h-12 w-12 text-primary-600 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Edukasi</h3>
-                  <p className="text-gray-600">
-                    Pelajari cara daur ulang dan pengelolaan sampah
-                  </p>
-                </motion.div>
-
-                <motion.div
-                  className="text-center p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow"
-                  whileHover={{ scale: 1.03 }}
-                >
-                  <MessageCircle className="h-12 w-12 text-primary-600 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">EcoBot</h3>
-                  <p className="text-gray-600">
-                    Chatbot AI untuk konsultasi pengelolaan sampah
-                  </p>
-                </motion.div>
-
-                <motion.div
-                  className="text-center p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow"
-                  whileHover={{ scale: 1.03 }}
-                >
-                  <MapPin className="h-12 w-12 text-primary-600 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Bank Sampah</h3>
-                  <p className="text-gray-600">
-                    Temukan lokasi bank sampah terdekat
-                  </p>
-                </motion.div>
-              </>
-            )}
-
+            {/* Kamera Live */}
             <motion.div
               className="text-center p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow"
               whileHover={{ scale: 1.03 }}
             >
-              <Leaf className="h-12 w-12 text-primary-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Ramah Lingkungan</h3>
-              <p className="text-gray-600">
-                Berkontribusi untuk lingkungan yang lebih bersih
-              </p>
+              <Link to={user ? "/classify" : "/login"} className="block">
+                <Camera className="h-12 w-12 text-primary-600 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Kamera Live</h3>
+                <p className="text-gray-600">
+                  Gunakan kamera untuk klasifikasi real-time
+                </p>
+              </Link>
+            </motion.div>
+
+            {/* Edukasi */}
+            <motion.div
+              className="text-center p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow"
+              whileHover={{ scale: 1.03 }}
+            >
+              <Link to={user ? "/education" : "/login"} className="block">
+                <BookOpen className="h-12 w-12 text-primary-600 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Edukasi</h3>
+                <p className="text-gray-600">
+                  Pelajari cara daur ulang dan pengelolaan sampah
+                </p>
+              </Link>
+            </motion.div>
+
+            {/* EcoBot */}
+            <motion.div
+              className="text-center p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow"
+              whileHover={{ scale: 1.03 }}
+            >
+              <Link to={user ? "/chatbot" : "/login"} className="block">
+                <MessageCircle className="h-12 w-12 text-primary-600 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold mb-2">EcoBot</h3>
+                <p className="text-gray-600">
+                  Chatbot AI untuk konsultasi pengelolaan sampah
+                </p>
+              </Link>
+            </motion.div>
+
+            {/* Bank Sampah */}
+            <motion.div
+              className="text-center p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow"
+              whileHover={{ scale: 1.03 }}
+            >
+              <Link to={user ? "/waste-bank" : "/login"} className="block">
+                <MapPin className="h-12 w-12 text-primary-600 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Bank Sampah</h3>
+                <p className="text-gray-600">
+                  Temukan lokasi bank sampah terdekat
+                </p>
+              </Link>
+            </motion.div>
+
+            {/* Ramah Lingkungan */}
+            <motion.div
+              className="text-center p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow"
+              whileHover={{ scale: 1.03 }}
+            >
+              <Link to="/about" className="block">
+                <Leaf className="h-12 w-12 text-primary-600 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Ramah Lingkungan</h3>
+                <p className="text-gray-600">
+                  Berkontribusi untuk lingkungan yang lebih bersih
+                </p>
+              </Link>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Waste Classification Section */}
+      <section className="py-16 px-4 bg-gradient-to-br from-blue-50 to-green-50 overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              9 Jenis Sampah yang Dapat Diklasifikasi
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              EcoSort AI dapat mengidentifikasi berbagai jenis sampah dengan akurasi 98% untuk membantu proses daur ulang yang tepat
+            </p>
+          </motion.div>
+
+          {/* Scrolling waste types */}
+          <div className="relative">
+            {/* First row - moving left */}
+            <motion.div
+              className="flex space-x-6 mb-6"
+              animate={{
+                x: [-50, -1400],
+              }}
+              transition={{
+                duration: 25,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            >
+              {[...wasteTypes, ...wasteTypes.slice(0, 5)].map((waste, index) => (
+                <motion.div
+                  key={`row1-${index}`}
+                  className={`flex-shrink-0 w-72 p-6 rounded-xl border-2 ${waste.color} backdrop-blur-sm shadow-sm`}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="text-center">
+                    <div className="text-5xl mb-4">{waste.emoji}</div>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">{waste.name}</h3>
+                    <p className="text-sm text-gray-600">{waste.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Second row - moving right */}
+            <motion.div
+              className="flex space-x-6"
+              animate={{
+                x: [-1400, -50],
+              }}
+              transition={{
+                duration: 30,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            >
+              {[...wasteTypes.slice(4), ...wasteTypes.slice(0, 8)].map((waste, index) => (
+                <motion.div
+                  key={`row2-${index}`}
+                  className={`flex-shrink-0 w-72 p-6 rounded-xl border-2 ${waste.color} backdrop-blur-sm shadow-sm`}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="text-center">
+                    <div className="text-5xl mb-4">{waste.emoji}</div>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">{waste.name}</h3>
+                    <p className="text-sm text-gray-600">{waste.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* CTA */}
+          <motion.div
+            className="text-center mt-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <p className="text-lg text-gray-600 mb-6">
+              Coba klasifikasi sampah Anda sekarang dan dapatkan panduan daur ulang yang tepat!
+            </p>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                to="/classify"
+                className="inline-flex items-center px-8 py-3 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-colors shadow-lg"
+              >
+                <Upload className="mr-2 h-5 w-5" />
+                Coba Klasifikasi Sekarang
+              </Link>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
@@ -334,7 +442,7 @@ export const Home: React.FC = () => {
             </p>
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }}>
               <Link
-                to="/classify"
+                to="/login"
                 className="bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
               >
                 Mulai Sekarang
