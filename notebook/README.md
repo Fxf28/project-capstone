@@ -2,7 +2,7 @@
 
 ## Ringkasan Eksekutif
 
-EcoSort adalah platform web berbasis AI yang mengatasi masalah pengelolaan sampah di Indonesia, khususnya sampah plastik yang belum terkelola dengan baik. Proyek ini bertujuan meningkatkan akurasi pemilahan sampah dan partisipasi daur ulang masyarakat. Kami memanfaatkan model **Convolutional Neural Network (CNN)**, diperkuat dengan **YOLO RealWaste**, untuk mengklasifikasikan 6 jenis sampah utama (plastik multilayer, kertas, logam, kaca, organik, B3) dengan target akurasi $\\geq 85%$. EcoSort juga dilengkapi **panduan daur ulang spesifik** dan **integrasi peta bank sampah** (bekerja sama dengan Waste4Change) untuk memudahkan penyaluran sampah. Proyek ini sejalan dengan target pengurangan sampah plastik KLHK 2024–2025.
+EcoSort adalah platform web berbasis AI yang mengatasi masalah pengelolaan sampah di Indonesia, khususnya sampah plastik yang belum terkelola dengan baik. Proyek ini bertujuan meningkatkan akurasi pemilahan sampah dan partisipasi daur ulang masyarakat. Kami memanfaatkan model **Convolutional Neural Network (CNN)**, diperkuat dengan **YOLO Classification**, untuk mengklasifikasikan 6 jenis sampah utama (plastik multilayer, kertas, logam, kaca, organik, B3) dengan target akurasi $\\geq 85%$. EcoSort juga dilengkapi **panduan daur ulang spesifik**, **chatbot interaktif** dan **integrasi peta bank sampah** untuk memudahkan penyaluran sampah. Proyek ini sejalan dengan target pengurangan sampah plastik KLHK 2024–2025.
 
 ---
 
