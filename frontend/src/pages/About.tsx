@@ -262,7 +262,7 @@ export const About: React.FC = () => {
               <span>contact@ecosort.id</span>
             </motion.a>
             <motion.a
-              href="https://github.com/ecosort/ecosort-app"
+              href="https://github.com/Fxf28/project-capstone.git"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center space-x-2 bg-white bg-opacity-20 px-6 py-3 rounded-lg hover:bg-opacity-30 transition-colors"
